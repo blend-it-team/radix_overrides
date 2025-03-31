@@ -14,9 +14,6 @@ props:
     header:
       type: array
       title: Header
-    rows:
-      type: array
-      title: Body Rows
     footer:
       type: [array, string, 'null']
       title: Footer
