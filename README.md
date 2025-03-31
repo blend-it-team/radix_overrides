@@ -8,6 +8,24 @@ Or shared components like select 2 or other that need sass build with bootstrap 
 
 ## Using Composer
 
+To handle shared theme we use a custom composer type `drupal-shared-theme`.
+You need to add the following configuration to your `composer.json` file:
+
+```json
+"extra": {
+  "installer-types": ["drupal-shared-theme"],
+  "installer-paths": {
+      "web/themes/shared/{$name}": ["type:drupal-shared-theme"]
+  }
+}
+```
+    
+Then you can require the theme with the following command:
+
+
+```bash
+composer require blend-it/radix_overrides
+```
 
 
 # Create child theme
