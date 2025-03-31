@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Theme override for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ */
+#}
+{% set attributes = attributes ?: create_attribute() %}
+{%
+  include "radix:form" with {
+    attributes: attributes.addClass('d-flex flex-grow-1 justify-content-start gap-2 align-items-end'),
+  }
+%}

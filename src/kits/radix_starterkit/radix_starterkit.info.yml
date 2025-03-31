@@ -1,0 +1,27 @@
+name: radix_starterkit
+description: "radix_starterkit theme based on Radix Bridge <a href='https://www.drupal.org/project/radix' target='_blank'>Radix 6.x</a> and Bootstrap 5.x"
+screenshot: screenshot.png
+'alt text': 'radix_starterkit theme screenshot'
+core_version_requirement: ^10.3 || ^11
+version: '1.0.0'
+engine: twig
+type: theme
+base theme: radix_overrides
+starterkit: true
+dependencies:
+  - drupal:serialization
+
+regions:
+  navbar_branding: Navbar branding
+  navbar_left: Navbar left
+  navbar_right: Navbar right
+  header: Header
+  content: Content
+  page_bottom: Page bottom
+  footer: Footer
+
+libraries:
+  - radix_starterkit/style
+
+ckeditor5-stylesheets:
+  - build/css/main.style.css

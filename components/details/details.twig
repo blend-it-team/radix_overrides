@@ -1,0 +1,63 @@
+{#
+/**
+ * @file
+ * Theme override for a details element.
+ */
+#}
+{% apply spaceless %}
+
+    {% set classes = [
+        'details',
+        'accordion-item',
+        'mb-3',
+        'card'
+    ] %}
+
+    {% set content_wrapper_classes = [
+        'details-wrapper',
+        'card-body'
+    ] %}
+
+    <div class="accordion">
+        <details{{ attributes.addClass(classes) }}>
+            {% if title %}
+                {% set summary_classes = [
+                    required ? 'js-form-required' : '',
+                    required ? 'form-required' : '',
+                    'card-header',
+                    'accordion-button'
+                ] %}
+                <summary{{ summary_attributes.addClass(summary_classes) }}>
+                    {{ title }}
+                </summary>
+            {% endif %}
+
+            <div{{ content_attributes.addClass(content_wrapper_classes) }}>
+
+                {% if errors %}
+                    <div class="invalid-feedback">
+                        {{ errors }}
+                    </div>
+                {% endif %}
+
+                {% if description %}
+                    <div class="details-description">
+                        {{ description }}
+                    </div>
+                {% endif %}
+
+                {% if children %}
+                    <div class="details-children p-3">
+                        {{ children }}
+                    </div>
+                {% endif %}
+
+                {% if value %}
+                    <div class="details-value">
+                        {{ value }}
+                    </div>
+                {% endif %}
+            </div>
+        </details>
+    </div>
+{% endapply %}

@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Custom implementation to display views in a grid.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the wrapping element.
+ * - view_view__grid_utility_classes: Optional additional wrapping classes.
+ * - title: Optional title for this group of rows.
+ * - view: The view object.
+ * - rows: Rendered view results.
+ * - options: The view plugin style options.
+ *   - row_class_default: A flag, if true default row classes should be used.
+ *   - col_class_default: A flag, if true default column classes should be used.
+ *   - alignment: vertical or horizontal ordering of cells.
+ * - items: List of grid items, each item contains rows/columns based on alignment.
+ *   - attributes: HTML attributes for each row or column.
+ *   - content: A list of columns or rows, which contain:
+ *     - attributes: HTML attributes for each row or column.
+ *     - content: The actual contents of each row or column.
+ *
+ * @see template_preprocess_views_view_grid()
+ */
+#}
+{% include "radix:views-view--grid" %}

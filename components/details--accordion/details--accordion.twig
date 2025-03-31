@@ -1,0 +1,92 @@
+{#
+/**
+ * @file
+ * Theme override for a details element.
+ */
+#}
+{% set accordion_id = 'accordion--' ~ random() %}
+{% set accordion_item_id = 'heading--' ~ accordion_id %}
+{%
+  set summary_classes = [
+  required ? 'js-form-required',
+  required ? 'form-required',
+  'accordion-header',
+]
+%}
+{%
+  set button_attributes = create_attribute({
+  'class': [
+    'accordion-button',
+    'collapsed'
+  ],
+  'type': 'button',
+  'data-bs-toggle': 'collapse',
+  'data-bs-target': '#' ~ accordion_item_id,
+  'aria-controls': accordion_item_id,
+  'aria-expanded': 'false'
+})
+%}
+{%
+  set content_attributes = create_attribute({
+  'id': accordion_item_id,
+  'class': [
+    'accordion-collapse',
+    'collapse'
+  ],
+  'aria-labelledby': 'heading--' ~ accordion_item_id
+})
+%}
+{% set content_attributes = accordion_id ? content_attributes.setAttribute('data-bs-parent', '#' ~ accordion_id) : content_attributes %}
+{% if attributes.hasAttribute('open') %}
+  {% set button_attributes = button_attributes.setAttribute('aria-expanded', 'true') %}
+  {% set button_attributes = button_attributes.removeClass('collapsed') %}
+  {% set content_attributes = content_attributes.addClass('show') %}
+{% endif %}
+
+{%
+  set description_classes = [
+  'description',
+  'form-text',
+]
+%}
+{% set description_attributes = description_attributes|default(create_attribute()) %}
+
+<div class="accordion mb-3" id="{{ accordion_id }}">
+  <div{{ attributes.addClass('accordion-item') }}>
+    {%- if title -%}
+      <h2{{ summary_attributes.addClass(summary_classes).setAttribute('id', 'heading--' ~ accordion_item_id) }}>
+        <button{{ button_attributes }}>
+          {{- title -}}
+          {%- if required -%}
+            <span class="required-mark"></span>
+          {%- endif -%}
+        </button>
+      </h2>
+    {%- endif -%}
+
+    <div{{ content_attributes }}>
+      <div class="accordion-body">
+        {% if description %}
+          <div{{ description_attributes.addClass(description_classes) }}>
+            {{ description }}
+          </div>
+        {% endif %}
+
+        {{ children }}
+        {{ value }}
+
+        {% if errors %}
+          {#
+          Bootstrap 5 expects direct parent of error wrapper to have the
+          is-invalid class. Currently hard or almost impossible to add it in
+          other preprocess on the children variable.
+          #}
+          <div class="is-invalid"></div>
+          <div{{ errors_attributes }}>
+            {{ errors }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

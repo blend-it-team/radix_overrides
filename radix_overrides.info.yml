@@ -1,0 +1,44 @@
+name: Radix overrides
+description: 'Fill the gap between Radix and Drupal default behaviours and our shared components.'
+screenshot: screenshot.png
+'alt text': 'radix_overrides theme screenshot'
+core_version_requirement: ^10.3 || ^11
+engine: twig
+type: theme
+'base theme': radix
+starterkit: true
+dependencies:
+  - 'drupal:serialization'
+  - 'drupal:radix'
+regions:
+  navbar_branding: 'Navbar branding'
+  navbar_left: 'Navbar left'
+  navbar_right: 'Navbar right'
+  sidebar: 'Sidebar'
+  sidebar_footer: 'Sidebar footer'
+  header: Header
+  content: Content
+  page_bottom: 'Page bottom'
+  footer: Footer
+
+libraries-override:
+  text/drupal.text: radix_overrides/drupal.text
+  core/drupal.vertical-tabs: radix_overrides/drupal.vertical-tabs
+  core/drupal.tabledrag: radix_overrides/drupal.tabledrag
+
+libraries-extend:
+  core/drupal.ajax:
+    - radix_overrides/drupal.ajax
+    - radix_overrides/drupal.throbber
+  core/drupal.checkbox:
+    - radix_overrides/drupal.checkbox
+  core/drupal.dialog:
+    - radix_overrides/drupal.dialog
+  core/drupal.dialog.ajax:
+    - radix_overrides/drupal.dialog.ajax
+  core/drupal.message:
+    - radix_overrides/drupal.message
+  core/drupal.progress:
+    - radix_overrides/drupal.progress
+  clientside_validation_jquery/cv.jquery.validate:
+    - radix_overrides/jquery.validate

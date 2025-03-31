@@ -1,0 +1,84 @@
+drupal.ajax:
+  js:
+    js/ajax.js: {}
+  dependencies:
+    - core/drupal
+
+drupal.checkbox:
+  js:
+    js/checkbox.js: {}
+  dependencies:
+    - core/drupal
+
+drupal.dialog:
+  js:
+    js/dialog.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+
+drupal.dialog.ajax:
+  js:
+    js/dialog.ajax.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.ajax
+
+drupal.message:
+  js:
+    js/message.js: {}
+
+drupal.progress:
+  js:
+    js/progress.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+
+drupal.tabledrag:
+  js:
+    js/tabledrag.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+
+drupal.text:
+  js:
+    js/text.js: {}
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupal
+
+drupal.throbber:
+  js:
+    js/throbber.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+drupal.vertical-tabs:
+  version: VERSION
+  js:
+    # Load before core/drupal.collapse.
+    js/vertical-tabs.js: { weight: -1 }
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupal
+    - core/drupalSettings
+    - core/drupal.form
+
+jquery.validate:
+  js:
+    js/validate.js: {}
+  dependencies:
+    - core/jquery
+select2.theme:
+  css:
+    component:
+      build/css/select2.css: {}

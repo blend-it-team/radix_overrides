@@ -1,0 +1,128 @@
+<?php
+
+/**
+ * @file
+ * Functions to handle shared radix overrides.
+ */
+
+use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Entity\EntityForm;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+
+/**
+* Implements hook_form_alter().
+*/
+function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  if (isset($form['actions'])) {
+    $form['actions']['#attributes']['class'][] = 'hstack gap-2 mb-3 align-items-end';
+    foreach ($form['actions'] as $key => $action) {
+      if (isset($action['#type'])) {
+        $button_text = '';
+        if (!isset($action['#options']['#attributes'])) {
+          $action['#options']['#attributes'] = [];
+        }
+        $attributes = &$form['actions'][$key]['#attributes'];
+
+        if ($action['#type'] == 'submit') {
+          if ($action['#value'] instanceof TranslatableMarkup) {
+            $button_text = $action['#value']->getUntranslatedString();
+          } else {
+            $button_text = $action['#value'];
+          }
+
+        } elseif ($action['#type'] === 'link') {
+          $button_text = $action['#title']->getUntranslatedString();
+        }
+
+        $attributes['class'][] = 'btn';
+
+        // Detect delete action
+        if (stripos($button_text, 'delete') !== FALSE) {
+          if ($key == 'submit') {
+            $attributes['class'][] = 'btn-danger';
+          } else {
+            $attributes['class'][] = 'btn-outline-danger';
+          }
+        // Detect cancel action
+        } elseif (stripos($button_text, 'cancel') !== FALSE) {
+          $attributes['class'][] = 'btn-default';
+        } else {
+          if ($key == 'submit') {
+            $attributes['class'][] = 'btn-primary';
+          } else {
+            $attributes['class'][] = 'btn-outline-primary';
+          }
+        }
+      }
+    }
+  }
+
+
+}
+
+/**
+ * Converts a link render element to an action link.
+ *
+ * This helper merges every attributes from $link['#attributes'], from
+ * $link['#options']['attributes'] and from the Url object's.
+ *
+ * @param array $link
+ *   Link renderable array.
+ * @param array $classes
+ *   List of css classes to add to the action link.
+ *
+ * @return array
+ *   The link renderable converted to action link.
+ */
+function _radix_convert_link_to_action_link(array $link, $classes) {
+  // Early opt-out if we cannot do anything.
+  if (empty($link['#type']) || $link['#type'] !== 'link' || empty($link['#url'])) {
+    return $link;
+  }
+
+  // \Drupal\Core\Render\Element\Link::preRenderLink adds $link['#attributes']
+  // to $link[#options]['attributes'] if it is not empty, but it does not merges
+  // the 'class' subkey deeply.
+  // Because of this, when $link[#options]['attributes']['class'] is set, the
+  // classes defined in $link['#attributes']['class'] are ignored.
+  //
+  // To keep this behavior we repeat this for action-link, which means that this
+  // conversion happens a bit earlier. We unset $link['#attributes'] to prevent
+  // Link::preRenderLink() doing the same, because for action-links, that would
+  // be needless.
+  $link += ['#options' => []];
+  if (isset($link['#attributes'])) {
+    $link['#options'] += [
+      'attributes' => [],
+    ];
+    $link['#options']['attributes'] += $link['#attributes'];
+    unset($link['#attributes']);
+  }
+  $link['#options'] += ['attributes' => []];
+  $link['#options']['attributes'] += ['class' => []];
+
+
+  // Remove button, button modifier CSS classes and other unwanted ones.
+  $link['#options']['attributes']['class'] = array_diff($link['#options']['attributes']['class'], [
+    'button',
+    'button--action',
+    'button--primary',
+    'button--danger',
+    'button--small',
+    'button--extrasmall',
+    'link',
+  ]);
+
+  // merge class with sent classes
+  $link['#options']['attributes']['class'] = array_merge($link['#options']['attributes']['class'], $classes);
+
+  // If the provided $link is an item of the 'links' theme function, then only
+  // the attributes of the Url object are processed during rendering.
+  $url_attributes = $link['#url']->getOption('attributes') ?: [];
+  $url_attributes = NestedArray::mergeDeep($url_attributes, $link['#options']['attributes']);
+  $link['#url']->setOption('attributes', $url_attributes);
+
+  return $link;
+}
