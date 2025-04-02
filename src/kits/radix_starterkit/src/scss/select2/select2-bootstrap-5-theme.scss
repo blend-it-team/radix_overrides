@@ -3,8 +3,10 @@
 */
 
 @import "~bootstrap/scss/functions";
-@import "../base/variables";
+@import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
+@import "../base/variables";
 
-$s2bs5-border-color: $border-color;
-@import "include-all";
+// set the default border color to avoid error
+$s2bs5-border-color: rgba($gray-500, .175);
+@import "../../../../../shared/radix_overrides/src/scss/select2/include-all";
