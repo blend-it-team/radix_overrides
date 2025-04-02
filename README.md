@@ -29,7 +29,7 @@ composer require blend-it/radix_overrides
 
 For contributors you could use the following command to clone the repository:
 ```bash
-composer composer require blend-it/radix_overrides:6.0.x-dev --prefer-source
+composer require blend-it/radix_overrides:6.0.x-dev --prefer-source
 ```
 
 # Create child theme
