@@ -65,7 +65,7 @@
       once('vertical-tabs', '[data-vertical-tabs-panes]', context).forEach(
         (verticalTab) => {
           const $this = $(verticalTab);
-          const $details = $this.find('> .accordion > details');
+          const $details = $this.find('> .accordion > .accordion-item');
 
           // Move to vertical tabs only if there are more than two details.
           if ($details.length <= 2) {
@@ -97,7 +97,10 @@
           // Transform each details into a tab.
           $details.each(function () {
             const $that = $(this);
-            const $summary = $that.find('> summary');
+            const $summary = $that.find('> h2');
+            const $body = $that.find('.accordion-collapse');
+            $body.addClass('show');
+
             const verticalTab = new Drupal.verticalTab({
               title: $summary.length ? $summary[0].textContent : '',
               details: $that,
@@ -108,7 +111,7 @@
               .removeClass('collapsed')
               .removeClass('accordion-item')
               .removeAttr('open')
-              .addClass('vertical-tabs__pane card h-100')
+              .addClass('vertical-tabs__pane accordion card h-100')
               .data('verticalTab', verticalTab);
             if (this.id === focusID) {
               tabFocus = $that;
