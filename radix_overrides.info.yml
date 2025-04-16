@@ -24,7 +24,6 @@ regions:
 libraries-override:
   text/drupal.text: radix_overrides/drupal.text
   core/drupal.vertical-tabs: radix_overrides/drupal.vertical-tabs
-  core/drupal.tabledrag: radix_overrides/drupal.tabledrag
 
 libraries-extend:
   core/drupal.ajax:
@@ -40,5 +39,5 @@ libraries-extend:
     - radix_overrides/drupal.message
   core/drupal.progress:
     - radix_overrides/drupal.progress
-  clientside_validation_jquery/cv.jquery.validate:
-    - radix_overrides/jquery.validate
+  core/drupal.tabledrag:
+    - radix_overrides/drupal.tabledrag

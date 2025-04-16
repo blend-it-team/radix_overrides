@@ -1,0 +1,37 @@
+/**
+ * CKEditor5 theme override.
+ *
+ * The theme selection is possible with the UI Skins module in this theme
+ * settings.
+ *
+ * @see https://ckeditor.com/docs/ckeditor5/latest/framework/deep-dive/ui/theme-customization.html
+ */
+[data-bs-theme="light"],
+[data-bs-theme="dark"] {
+  --ck-custom-background: var(--bs-body-bg);
+  --ck-custom-foreground: var(--bs-body-color);
+  --ck-custom-border: var(--bs-secondary-bg);
+  --ck-custom-white: var(--bs-body-color);
+  --ck-color-base-active: var(--bs-secondary-bg);
+  --ck-color-base-active-focus: var(--bs-secondary-bg);
+  --ck-color-base-background: var(--bs-body-bg);
+  --ck-color-base-foreground: var(--bs-secondary-bg);
+  --ck-color-panel-background: var(--bs-body-bg);
+  --ck-color-toolbar-background: var(--bs-body-bg);
+  --ck-color-text: var(--bs-body-color);
+  --ck-color-button-default-background: var(--bs-body-bg);
+  --ck-color-button-default-hover-background: var(--bs-secondary-bg);
+  --ck-color-button-default-active-background: var(--bs-tertiary-bg);
+  --ck-color-button-default-disabled-background: var(--bs-secondary-bg);
+  --ck-color-button-on-background: var(--bs-secondary-bg);
+  --ck-color-button-on-hover-background: var(--bs-secondary-bg);
+  --ck-color-dropdown-panel-background: var(--bs-body-bg);
+  --ck-color-dropdown-panel-border: var(--bs-body-color);
+  --ck-color-split-button-hover-background: var(--bs-secondary-bg);
+  --ck-color-input-background: var(--bs-body-bg);
+  --ck-color-input-text: var(--bs-body-color);
+  --ck-color-input-disabled-background: var(--bs-secondary-bg);
+  --ck-color-labeled-field-label-background: var(--bs-secondary-bg);
+  --ck-color-list-background: var(--bs-body-bg);
+  --ck-color-list-button-hover-background: var(--bs-secondary-bg);
+}

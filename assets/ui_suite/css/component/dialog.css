@@ -1,0 +1,7 @@
+.modal-footer .ui-dialog-buttonset {
+  gap: var(--bs-modal-footer-gap);
+}
+
+.modal {
+  --bs-modal-zindex: 1050;
+}

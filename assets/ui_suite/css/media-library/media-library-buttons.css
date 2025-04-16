@@ -1,0 +1,21 @@
+/* Remove button of selected medias. */
+button.media-library-remove-button,
+/* Edit button. */
+a.media-library-edit__link {
+  position: absolute;
+  z-index: 1;
+  right: var(--bs-card-spacer-x);
+  margin: 0.25rem;
+}
+
+/* Edit button. */
+a.media-library-edit__link {
+  top: 30px;
+}
+
+/* Remove button when creating a media. */
+.media-added-remove-button {
+  position: absolute;
+  right: calc(var(--bs-gutter-x) * 0.5 * 3);
+  width: auto;
+}

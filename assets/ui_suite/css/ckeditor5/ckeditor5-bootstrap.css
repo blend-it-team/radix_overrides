@@ -1,0 +1,13 @@
+/**
+ * CKEditor5 Bootstrap compatibility.
+ *
+ * @see https://ckeditor.com/docs/ckeditor5/latest/getting-started/installation/css.html#bootstrap-modals
+ */
+
+/**
+ * Configure the z-index of the editor UI, so when inside a Bootstrap
+ * modal, it will be rendered over the modal (for example, balloons).
+ */
+:root {
+  --ck-z-default: 100 !important;
+}

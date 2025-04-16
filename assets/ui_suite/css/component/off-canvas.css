@@ -1,0 +1,9 @@
+/**
+ * Ensure off-canvas resizing is working.
+ */
+.offcanvas-end {
+  left: auto !important;
+}
+.offcanvas-bottom {
+  top: auto !important;
+}

@@ -4,6 +4,7 @@
  *
  * @see http://www.whatwg.org/specs/web-apps/current-work/multipage/commands.html#the-dialog-element
  */
+/* eslint-disable no-undef, no-jquery/no-css */
 
 (($, Drupal, drupalSettings) => {
   /**
@@ -119,7 +120,11 @@
 
     function dispatchDialogEvent(eventType, dialog, element, settings) {
       if (typeof DrupalDialogEvent === 'undefined') {
-        $(window).trigger(`dialog:${eventType}`, [dialog, $(element), settings]);
+        $(window).trigger(`dialog:${eventType}`, [
+          dialog,
+          $(element),
+          settings,
+        ]);
       } else {
         const event = new DrupalDialogEvent(eventType, dialog, settings || {});
         element.dispatchEvent(event);

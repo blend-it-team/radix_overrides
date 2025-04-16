@@ -1,0 +1,19 @@
+.draggable.drag,
+.draggable.drag:focus {
+  --bs-table-bg: var(--bs-warning);
+}
+
+.draggable.drag-previous {
+  --bs-table-bg: var(--bs-warning-bg-subtle);
+}
+
+.draggable a.tabledrag-handle {
+  margin-inline-start: 0;
+}
+
+a.tabledrag-handle .handle {
+  width: calc(2.125 * var(--bs-body-font-size));
+  height: calc(2.125 * var(--bs-body-font-size));
+  margin: 0;
+  background-position: 50% 5px;
+}

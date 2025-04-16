@@ -1,18 +1,18 @@
 drupal.ajax:
   js:
-    js/ajax.js: {}
+    assets/radix/js/overrides/ajax.js: {}
   dependencies:
     - core/drupal
 
 drupal.checkbox:
   js:
-    js/checkbox.js: {}
+    assets/radix/js/overrides/checkbox.js: {}
   dependencies:
     - core/drupal
 
 drupal.dialog:
   js:
-    js/dialog.js: {}
+    assets/radix/js/overrides/dialog.js: {}
   dependencies:
     - core/jquery
     - core/drupal
@@ -20,7 +20,7 @@ drupal.dialog:
 
 drupal.dialog.ajax:
   js:
-    js/dialog.ajax.js: {}
+    assets/radix/js/overrides/dialog.ajax.js: {}
   dependencies:
     - core/jquery
     - core/drupal
@@ -28,18 +28,26 @@ drupal.dialog.ajax:
 
 drupal.message:
   js:
-    js/message.js: {}
+    assets/radix/js/overrides/message.js: {}
 
 drupal.progress:
   js:
-    js/progress.js: {}
+    assets/radix/js/overrides/progress.js: {}
   dependencies:
     - core/drupal
+    - core/jquery
+jquery.validate:
+  js:
+    assets/radix/js/overrides/validate.js: {}
+  dependencies:
     - core/jquery
 
 drupal.tabledrag:
   js:
-    js/tabledrag.js: {}
+    assets/ui_suite/js/misc/tabledrag.js: {}
+  css:
+    component:
+      assets/ui_suite/css/component/tabledrag.css: {}
   dependencies:
     - core/jquery
     - core/drupal
@@ -48,7 +56,7 @@ drupal.tabledrag:
 
 drupal.text:
   js:
-    js/text.js: {}
+    assets/js/text.js: {}
   dependencies:
     - core/jquery
     - core/once
@@ -56,7 +64,7 @@ drupal.text:
 
 drupal.throbber:
   js:
-    js/throbber.js: {}
+    assets/js/throbber.js: {}
   dependencies:
     - core/jquery
     - core/drupal
@@ -65,20 +73,10 @@ drupal.vertical-tabs:
   version: VERSION
   js:
     # Load before core/drupal.collapse.
-    js/vertical-tabs.js: { weight: -1 }
+    assets/js/vertical-tabs.js: { weight: -1 }
   dependencies:
     - core/jquery
     - core/once
     - core/drupal
     - core/drupalSettings
     - core/drupal.form
-
-jquery.validate:
-  js:
-    js/validate.js: {}
-  dependencies:
-    - core/jquery
-select2.theme:
-  css:
-    component:
-      build/css/select2.css: {}
