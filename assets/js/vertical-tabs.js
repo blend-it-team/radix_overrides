@@ -111,7 +111,7 @@
               .removeClass('collapsed')
               .removeClass('accordion-item')
               .removeAttr('open')
-              .addClass('vertical-tabs__pane accordion card h-100')
+              .addClass('vertical-tabs__pane accordion h-100')
               .data('verticalTab', verticalTab);
             if (this.id === focusID) {
               tabFocus = $that;
