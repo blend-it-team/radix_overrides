@@ -234,7 +234,10 @@
      * Updates the tab's summary.
      */
     updateSummary() {
-      this.summary.html(this.details.drupalGetSummary());
+      // Check if drupalGetSummary() exists.
+      if (typeof this.details.drupalGetSummary === 'function') {
+        this.summary.html(this.details.drupalGetSummary());
+      }
     },
 
     /**
