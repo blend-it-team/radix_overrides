@@ -148,7 +148,7 @@
       $($element).attr('data-settings', JSON.stringify(settings));
 
       if (settings.maxWidth) {
-        $element.find('.modal-dialog').css('max-width', settings.maxWidth);
+        $element.find('.modal-dialog').css('max-width', settings.maxWidth + 'px');
       }
 
       // The modal dialog header.
