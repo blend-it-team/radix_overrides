@@ -12,7 +12,7 @@ drupal.checkbox:
 
 drupal.dialog:
   js:
-    assets/js/overrides/dialog.js: {}
+    assets/js/dialog.js: {}
   dependencies:
     - core/jquery
     - core/drupal
