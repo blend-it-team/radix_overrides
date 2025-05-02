@@ -24,6 +24,64 @@ regions:
 libraries-override:
   text/drupal.text: radix_overrides/drupal.text
   core/drupal.vertical-tabs: radix_overrides/drupal.vertical-tabs
+  core/drupal.autocomplete:
+    css:
+      component:
+        misc/components/autocomplete-loading.module.css: false
+  core/drupal.dialog.off_canvas:
+    css:
+      base:
+        misc/dialog/off-canvas/css/reset.css: false
+        misc/dialog/off-canvas/css/base.css: false
+        misc/dialog/off-canvas/css/utility.css: false
+      component:
+        misc/dialog/off-canvas/css/button.css: false
+        misc/dialog/off-canvas/css/drupal.css: false
+        misc/dialog/off-canvas/css/form.css: false
+        misc/dialog/off-canvas/css/table.css: false
+        misc/dialog/off-canvas/css/details.css: false
+        misc/dialog/off-canvas/css/messages.css: false
+        misc/dialog/off-canvas/css/tabledrag.css: false
+        misc/dialog/off-canvas/css/throbber.css: false
+        misc/dialog/off-canvas/css/dropbutton.css: false
+        misc/dialog/off-canvas/css/titlebar.css: false
+        misc/dialog/off-canvas/css/wrapper.css: false
+  core/drupal.dropbutton: false
+  core/drupal.tableheader: false
+  layout_builder/drupal.layout_builder:
+    css:
+      theme:
+        css/layout-builder.css: false
+        css/off-canvas.css: false
+  node/drupal.node.preview:
+    css:
+      theme:
+        css/node.preview.css: false
+  system/base:
+    css:
+      component:
+        css/components/clearfix.module.css: false
+        css/components/container-inline.module.css: false
+        css/components/tablesort.module.css: assets/css/components/tablesort.module.css
+        css/components/system-status-counter.css: false
+        css/components/system-status-report-counters.css: false
+        css/components/system-status-report-general-info.css: false
+
+  clientside_validation_jquery/cv.jquery.ife: false
+
+  media_library_edit/admin:
+    css:
+      component:
+        css/media_library_edit.admin.css: false
+  paragraphs/drupal.paragraphs.unpublished: false
+  section_library/section_library:
+    css:
+      theme:
+        css/section-library.css: false
+  ui_icons/ui_icons.autocomplete:
+    css:
+      component:
+        css/icon.autocomplete.css: false
 
 libraries-extend:
   core/drupal.ajax:

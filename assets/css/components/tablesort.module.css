@@ -1,0 +1,30 @@
+/**
+ * @file
+ * Table sort indicator.
+ *
+ * @see tablesort-indicator.html.twig
+ */
+.views-field:has(.tablesort) {
+  white-space: nowrap;
+}
+.tablesort {
+  display: inline-block;
+  border-color: currentColor;
+  border-style: solid;
+  border-left-color: transparent;
+  border-top-color: transparent;
+  border-width: 0 0.125em 0.125em 0;
+  width: 0.50em;
+  height: 0.50em;
+  vertical-align: middle;
+}
+.tablesort--asc {
+  margin: 0 0.25rem -0.25rem;
+  transform: rotate(225deg);
+}
+.tablesort--desc {
+  margin: -0.25rem 0.25rem 0;
+  transform: rotate(45deg);
+}
+
+
