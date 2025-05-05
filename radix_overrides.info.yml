@@ -28,6 +28,10 @@ libraries-override:
     css:
       component:
         misc/components/autocomplete-loading.module.css: false
+  core/drupal.dialog:
+    css:
+      component:
+        assets/vendor/jquery.ui/themes/base/dialog.css: false
   core/drupal.dialog.off_canvas:
     css:
       base:
@@ -66,6 +70,7 @@ libraries-override:
         css/components/system-status-counter.css: false
         css/components/system-status-report-counters.css: false
         css/components/system-status-report-general-info.css: false
+        css/components/dialog.css: false
 
   clientside_validation_jquery/cv.jquery.ife: false
 
