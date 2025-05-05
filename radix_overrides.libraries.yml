@@ -20,7 +20,7 @@ drupal.dialog:
 
 drupal.dialog.ajax:
   js:
-    assets/radix/js/overrides/dialog.ajax.js: {}
+    assets/js/dialog.ajax.js: {}
   dependencies:
     - core/jquery
     - core/drupal
