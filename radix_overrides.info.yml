@@ -66,14 +66,17 @@ libraries-override:
       component:
         css/components/clearfix.module.css: false
         css/components/container-inline.module.css: false
-        css/components/tablesort.module.css: assets/css/components/tablesort.module.css
+        css/components/tablesort.module.css: assets/css/component/tablesort.module.css
         css/components/system-status-counter.css: false
         css/components/system-status-report-counters.css: false
         css/components/system-status-report-general-info.css: false
         css/components/dialog.css: false
 
   clientside_validation_jquery/cv.jquery.ife: false
-
+  views_data_export/views_data_export:
+    css:
+      theme:
+        css/views_data_export.css: false
   media_library_edit/admin:
     css:
       component:
