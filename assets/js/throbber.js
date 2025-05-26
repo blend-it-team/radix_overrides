@@ -62,6 +62,6 @@
    *   The HTML markup for the throbber.
    */
   Drupal.theme.ajaxProgressIndicatorFullscreen = () =>
-    '<div class="position-fixed top-50 start-50"><div class="card border-0"><div class="card-body"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">' + Drupal.t('Loading') + '</span></div></div></div></div>';
+    '<div class="position-fixed top-50 start-50"><div class="shadow p-3 bg-body rounded"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">' + Drupal.t('Loading') + '</span></div></div></div>';
 
 })(jQuery, Drupal);
