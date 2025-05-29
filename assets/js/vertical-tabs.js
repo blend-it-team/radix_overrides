@@ -88,7 +88,7 @@
           $details.unwrap();
 
           // Create the tab column.
-          const tabList = $('<ul class="vertical-tabs__menu list-group list-group-flush col-4 border-end p-0"></ul>');
+          const tabList = $('<ul class="vertical-tabs__menu list-group list-group-flush col-4 p-0 bg-primary bg-opacity-10"></ul>');
           $this
             .wrap('<div class="container-fluid"></div>')
             .wrap('<div class="vertical-tabs row"></div>')
@@ -210,7 +210,9 @@
           const tab = $(this).data('verticalTab');
           tab.details.hide();
           tab.details.removeAttr('open');
-          tab.item.removeClass('is-selected list-group-item-primary');
+          tab.item.addClass('opacity-50');
+          tab.item.css('background-color', 'transparent');
+          tab.item.removeClass('is-selected bg-body');
         })
         .end()
         .show()
@@ -220,7 +222,9 @@
           hidden.value = this.details.attr('id');
         });
       this.details.attr('open', true);
-      this.item.addClass('is-selected list-group-item-primary');
+      this.item.addClass('is-selected bg-body');
+      this.item.css('background-color', '');
+      this.item.removeClass('opacity-50');
       // Mark the active tab for screen readers.
       $('#active-vertical-tab').remove();
       this.link.append(
@@ -325,13 +329,13 @@
     tab.title = $('<strong class="vertical-tabs__menu-item-title"></strong>');
     tab.title[0].textContent = settings.title;
     tab.item = $(
-      '<li class="vertical-tabs__menu-item list-group-item list-group-item-action" tabindex="-1"></li>',
+      '<li class="vertical-tabs__menu-item list-group-item list-group-item-action opacity-50" tabindex="-1"></li>',
     ).append(
       (tab.link = $('<a href="#" class="nav-link text-start"></a>')
         .append(tab.title)
         .append(
           (tab.summary = $(
-            '<span class="vertical-tabs__menu-item-summary d-block text-start opacity-50"></span>',
+            '<span class="vertical-tabs__menu-item-summary d-block text-start"></span>',
           )),
         )),
     );
