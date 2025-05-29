@@ -41,7 +41,7 @@
 
         // Set up the edit/hide summary link.
         const $link = $(
-          `<span class="field-edit-link"> <button type="button" class="link link-edit-summary ml-3 btn btn-outline-primary btn-sm">${Drupal.t(
+          `<span class="field-edit-link"> <button type="button" class="link link-edit-summary ml-3 btn btn-outline-secondary btn-sm">${Drupal.t(
             'Hide summary',
           )}</button></span>`,
         );
