@@ -12,4 +12,6 @@
  * @ingroup themeable
  */
 #}
-<div class="alert alert-warning">{{ form }}</div>
+<div class="alert alert-warning">{{ form|without('actions') }}</div>
+{{ form.actions }}
+
