@@ -39,4 +39,8 @@
  * @see template_preprocess_table()
  */
 #}
-{% include 'radix_overrides:table' %}
+{% include 'radix:table'  with {
+  table_utility_classes : [
+    'table-hover'
+  ]
+} %}

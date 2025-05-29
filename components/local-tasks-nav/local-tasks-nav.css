@@ -1,0 +1,24 @@
+.local-tasks-nav{
+  & .nav-link, .nav-link:hover {
+    border-radius: var(--bs-border-radius) !important;
+    color: var(--bs-body-color);
+  }
+}
+.local-tasks-nav.active-state {
+  & .nav-link:hover, .nav-link.active {
+    background-color: var(--bs-body-bg, #fff);
+  }
+  & .nav-link.active {
+    box-shadow: var(--bs-box-shadow-sm)!important;
+  }
+}
+
+.local-tasks-nav.hover-opacity {
+  & .nav-link {
+    opacity: 0.5;
+  }
+  & .nav-link:hover,
+  .nav-link.active {
+    opacity: 1;
+  }
+}

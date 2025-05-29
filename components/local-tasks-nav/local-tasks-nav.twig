@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Rendering local tasks navigations
+ *
+ * Available variables:
+ * - content: Contains  tabs or, in other words tasks.
+ */
+#}
+{%
+  set nav_classes = [
+  'nav',
+  'local-tasks-nav'
+]|merge(nav_utility_classes ?: [])
+%}
+{% set nav_attributes = attributes ?: create_attribute() %}
+
+<ul {{ nav_attributes.addClass(nav_classes) }}>{{ content }}</ul>
