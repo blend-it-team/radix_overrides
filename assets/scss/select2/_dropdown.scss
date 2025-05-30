@@ -34,7 +34,6 @@
                 width: 100%;
                 padding: $s2bs5-padding-y $s2bs5-padding-x;
                 font-family: $s2bs5-font-family;
-                @include font-size($s2bs5-font-size);
                 font-weight: $s2bs5-font-weight;
                 line-height: $s2bs5-line-height;
                 color: $s2bs5-color;
@@ -64,7 +63,6 @@
             // Item
             .select2-results__option {
                 padding: $s2bs5-item-padding-y $s2bs5-item-padding-x;
-                @include font-size($s2bs5-font-size);
                 font-weight: $s2bs5-font-weight;
                 line-height: $s2bs5-line-height;
 
