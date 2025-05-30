@@ -158,11 +158,6 @@
         );
       }
 
-      if ($element.resizable !== undefined && settings.resizable) {
-        $element.resizable({
-          handles: 'w',
-        });
-      }
 
       domElement.dispatchEvent(
         // eslint-disable-next-line no-undef
@@ -179,7 +174,7 @@
     }
 
     dialog.show = () => {
-      openDialog({ backdrop: false });
+      openDialog({ backdrop: true, scroll : true });
     };
     dialog.showModal = () => {
       openDialog({ backdrop: true });

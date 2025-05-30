@@ -12,7 +12,10 @@ drupal.checkbox:
 
 drupal.dialog:
   js:
-    assets/js/dialog.js: {}
+    assets/ui_suite/js/misc/dialog/dialog.js: {}
+  css:
+    theme:
+      assets/ui_suite/css/component/dialog.css: { }
   dependencies:
     - core/jquery
     - core/drupal
@@ -20,11 +23,23 @@ drupal.dialog:
 
 drupal.dialog.ajax:
   js:
-    assets/js/dialog.ajax.js: {}
+    assets/ui_suite/js/misc/dialog/dialog.ajax.js: {}
   dependencies:
     - core/jquery
     - core/drupal
     - core/drupal.ajax
+
+drupal.dialog.off_canvas:
+  js:
+    assets/ui_suite/js/misc/dialog/dialog.off-canvas.js: {}
+  css:
+    component:
+      assets/ui_suite/css/component/off-canvas.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+
 
 drupal.message:
   js:

@@ -71,6 +71,7 @@ libraries-override:
         css/components/system-status-report-counters.css: false
         css/components/system-status-report-general-info.css: false
         css/components/dialog.css: false
+        css/components/resize.module.css: false
 
   clientside_validation_jquery/cv.jquery.ife: false
   views_data_export/views_data_export:
@@ -101,6 +102,8 @@ libraries-extend:
     - radix_overrides/drupal.dialog
   core/drupal.dialog.ajax:
     - radix_overrides/drupal.dialog.ajax
+  core/drupal.dialog.off_canvas:
+    - radix_overrides/drupal.dialog.off_canvas
   core/drupal.message:
     - radix_overrides/drupal.message
   core/drupal.progress:

@@ -107,7 +107,7 @@
         `<div id="${response.selector.replace(
           /^#/,
           '',
-        )}" class="offcanvas ui-front" tabindex="-1" role="dialog"></div>`,
+        )}" class="offcanvas" tabindex="-1" role="dialog"></div>`,
       ).appendTo('body');
     }
 
