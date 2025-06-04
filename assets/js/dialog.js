@@ -161,7 +161,7 @@
           modalHeader += `<h${heading} class="modal-title">${settings.title}</h${heading}>`;
         }
 
-        modalHeader += `<button type="button" class="close btn-close ui-dialog-titlebar-close" data-bs-dismiss="modal" data-dismiss="modal" aria-label="${Drupal.t(
+        modalHeader += `<button type="button" class="close btn-close" data-bs-dismiss="modal" data-dismiss="modal" aria-label="${Drupal.t(
           'Close',
         )}"><span aria-hidden="true" class="visually-hidden">&times;</span></button>`;
 
