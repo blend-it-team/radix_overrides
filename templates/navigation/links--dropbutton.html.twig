@@ -36,6 +36,7 @@
  * @see template_preprocess_links()
  */
 #}
+{% if links -%}
 {%
   include 'radix:dropdown' with {
     dropdown_button_content: button.text,
@@ -47,3 +48,4 @@
     items: links|slice(1)
   }
 %}
+{%- endif %}
