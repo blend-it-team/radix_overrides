@@ -8,7 +8,9 @@
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Url;
 
 /**
 * Implements hook_form_alter().
@@ -31,9 +33,12 @@ function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $for
           } else {
             $button_text = $action['#value'];
           }
-
-        } elseif ($action['#type'] === 'link') {
-          $button_text = $action['#title']->getUntranslatedString();
+        } elseif ($action['#type'] == 'link') {
+          if ($action['#title'] instanceof TranslatableMarkup) {
+            $button_text = $action['#title']->getUntranslatedString();
+          } else {
+            $button_text = $action['#title'];
+          }
         }
 
         $attributes['class'][] = 'btn';
@@ -125,4 +130,77 @@ function _radix_convert_link_to_action_link(array $link, $classes) {
   $link['#url']->setOption('attributes', $url_attributes);
 
   return $link;
+}
+
+/**
+ * Implements template_preprocess_HOOK() for node_add_list.
+ *
+ * Makes node_add_list variables compatible with entity_add_list.
+ */
+function radix_overrides_preprocess_node_add_list(&$variables) {
+  if (!empty($variables['content'])) {
+    /** @var \Drupal\node\NodeTypeInterface $type */
+    foreach ($variables['content'] as $type) {
+      $label = $type->label();
+      $description = $type->getDescription();
+      $type_id = $type->id();
+      $add_url = Url::fromRoute('node.add', ['node_type' => $type_id]);
+      $variables['bundles'][$type_id] = [
+        'label' => $label,
+        'add_link' => Link::fromTextAndUrl($label, $add_url),
+        'description' => [],
+      ];
+      if (!empty($description)) {
+        $variables['bundles'][$type_id]['description'] = [
+          '#markup' => $description,
+        ];
+      }
+    }
+    $variables['attributes']['class'][] = 'node-type-list';
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK() for block_content_add_list.
+ *
+ * Makes block_content_add_list variables compatible with entity_add_list.
+ */
+function radix_overrides_preprocess_block_content_add_list(&$variables) {
+  if (!empty($variables['content'])) {
+    $query = \Drupal::request()->query->all();
+    /** @var \Drupal\block_content\BlockContentTypeInterface $type */
+    foreach ($variables['content'] as $type) {
+      $label = $type->label();
+      $description = $type->getDescription();
+      $type_id = $type->id();
+      $add_url = Url::fromRoute('block_content.add_form', [
+        'block_content_type' => $type_id,
+      ], [
+        'query' => $query,
+      ]);
+      $variables['bundles'][$type_id] = [
+        'label' => $label,
+        'add_link' => Link::fromTextAndUrl($label, $add_url),
+        'description' => [],
+      ];
+
+      if (!empty($description)) {
+        $variables['bundles'][$type_id]['description'] = [
+          '#markup' => $description,
+        ];
+      }
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK() for entity_add_list.
+ */
+function radix_overrides_preprocess_entity_add_list(&$variables) {
+  // Remove description if empty.
+  foreach ($variables['bundles'] as $type_id => $values) {
+    if (isset($values['description']['#markup']) && empty($values['description']['#markup'])) {
+      $variables['bundles'][$type_id]['description'] = [];
+    }
+  }
 }

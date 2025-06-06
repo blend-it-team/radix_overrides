@@ -1,0 +1,36 @@
+{#
+/**
+ * @file
+ * Theme override to present a list of available bundles.
+ *
+ * Available variables:
+ * - bundles: A list of bundles, each with the following properties:
+ *   - label: Bundle label.
+ *   - description: Bundle description.
+ *   - add_link: \Drupal\Core\Link link instance to create an entity of this
+ *     bundle.
+ * - add_bundle_message: The message shown when there are no bundles. Only
+ *     available if the entity type uses bundle entities.
+ *
+ * @see template_preprocess_entity_add_list()
+ */
+#}
+
+{% if bundles is not empty %}
+  <div{{ attributes.addClass('list-group') }}>
+    {% for bundle in bundles %}
+      {% set bundle_attributes = bundle.add_link.url.getOption('attributes') ?: {} %}
+      {% set link_attributes = create_attribute(bundle_attributes).addClass('list-group-item', 'list-group-item-action', 'py-3') %}
+      <a href="{{ bundle.add_link.url }}"{{ link_attributes|without('href') }}>
+        <h6 class="fw-semibold mb-0">{{ bundle.add_link.text }}</h6>
+        {% if bundle.description %}
+          <p class="mb-0 opacity-50">{{ bundle.description }}</p>
+        {% endif %}
+      </a>
+    {% endfor %}
+  </div>
+{% elseif add_bundle_message is not empty %}
+  <p>
+    {{ add_bundle_message }}
+  </p>
+{% endif %}
