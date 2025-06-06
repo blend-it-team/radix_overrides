@@ -174,7 +174,7 @@
     }
 
     dialog.show = () => {
-      openDialog({ backdrop: true, scroll : true });
+      openDialog({ backdrop: true, scroll : false });
     };
     dialog.showModal = () => {
       openDialog({ backdrop: true });
