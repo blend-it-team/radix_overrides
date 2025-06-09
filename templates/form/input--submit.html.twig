@@ -1,4 +1,3 @@
-
 {#
 /**
  * @file
@@ -11,14 +10,4 @@
  * @see template_preprocess_input()
  */
 #}
-{% if not attributes.hasClass('btn') %}
-  {%
-    set attributes = attributes.addClass('btn', 'btn-sm', 'btn-outline-secondary')
-  %}
-{% endif %}
-{%
-  include 'radix:input' with {
-    attributes: attributes.removeClass('button'),
-    remove_form_control: true
-  }
-%}
+<button{{ attributes }}>{{attributes.value}}</button>{{ children }}
