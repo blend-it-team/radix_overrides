@@ -329,9 +329,9 @@
     tab.title = $('<strong class="vertical-tabs__menu-item-title"></strong>');
     tab.title[0].textContent = settings.title;
     tab.item = $(
-      '<li class="vertical-tabs__menu-item list-group-item list-group-item-action opacity-75" tabindex="-1"></li>',
+      '<li class="vertical-tabs__menu-item list-group-item list-group-item-action opacity-75 p-0" tabindex="-1"></li>',
     ).append(
-      (tab.link = $('<a href="#" class="nav-link text-start"></a>')
+      (tab.link = $('<a href="#" class="nav-link text-start py-2 px-3"></a>')
         .append(tab.title)
         .append(
           (tab.summary = $(
