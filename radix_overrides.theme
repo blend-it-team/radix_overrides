@@ -12,6 +12,25 @@ use Drupal\Core\Link;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 
+
+
+function _radix_overrides_button_text_to_class($button_text) {
+  $button_mapping_styles = [
+    'delete' => 'danger',
+    'remove' => 'danger',
+    'cancel' => 'default',
+  ];
+  // Check if the button text contains any of the keywords.
+  foreach ($button_mapping_styles as $keyword => $style) {
+    if (stripos($button_text, $keyword) !== FALSE) {
+      return $style;
+    }
+  }
+
+  // Default class if no keywords matched.
+  return 'primary';
+}
+
 /**
 * Implements hook_form_alter().
 */
@@ -19,53 +38,76 @@ function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $for
 
   if (isset($form['actions'])) {
     $form['actions']['#attributes']['class'][] = 'hstack gap-2 mb-3 align-items-end';
-    foreach ($form['actions'] as $key => $action) {
-      if (isset($action['#type'])) {
-        $button_text = '';
-        if (!isset($action['#options']['#attributes'])) {
-          $action['#options']['#attributes'] = [];
-        }
-        $attributes = &$form['actions'][$key]['#attributes'];
+    foreach ($form['actions'] as $key => &$action) {
+      if (isset($action['#type']) && $action['#type'] == 'link') {
+        $attributes = &$action['#attributes'];
 
-        if ($action['#type'] == 'submit') {
-          if ($action['#value'] instanceof TranslatableMarkup) {
-            $button_text = $action['#value']->getUntranslatedString();
-          } else {
-            $button_text = $action['#value'];
-          }
-        } elseif ($action['#type'] == 'link') {
-          if ($action['#title'] instanceof TranslatableMarkup) {
-            $button_text = $action['#title']->getUntranslatedString();
-          } else {
-            $button_text = $action['#title'];
-          }
-        }
-
-        $attributes['class'][] = 'btn';
-
-        // Detect delete action
-        if (stripos($button_text, 'delete') !== FALSE) {
-          if ($key == 'submit') {
-            $attributes['class'][] = 'btn-danger';
-          } else {
-            $attributes['class'][] = 'btn-outline-danger';
-          }
-        // Detect cancel action
-        } elseif (stripos($button_text, 'cancel') !== FALSE) {
-          $attributes['class'][] = 'btn-default';
+        if ($action['#title'] instanceof TranslatableMarkup) {
+          $button_text = $action['#title']->getUntranslatedString();
         } else {
-          if ($key == 'submit') {
-            $attributes['class'][] = 'btn-primary';
-          } else {
-            $attributes['class'][] = 'btn-outline-primary';
-          }
+          $button_text = $action['#title'];
         }
+
+        $style_class = 'btn-outline-' . _radix_overrides_button_text_to_class($button_text);
+        $attributes['class'][] = 'btn';
+        $attributes['class'][] = $style_class;
       }
     }
   }
+}
 
+/**
+ * Implements template_preprocess_input().
+ */
+function radix_overrides_preprocess_input(&$variables) {
+
+  if (isset($variables['type']) && in_array($variables['type'], ['submit', 'button', 'reset', 'link'])) {
+    $input = &$variables['element'];
+
+    if (isset($input['#value']) && $input['#value'] instanceof TranslatableMarkup) {
+      $button_text = $input['#value']->getUntranslatedString();
+    } else {
+      $button_text = $input['#value'] ?? '';
+    }
+
+    $attributes = &$variables['attributes'];
+    $attributes['class'][] = 'btn';
+
+    $primary = FALSE;
+    if (isset($input['#button_type']) && $input['#button_type'] === 'primary') {
+      $primary = TRUE;
+    }
+
+    if (isset($input['#parents']) && in_array('submit', $input['#parents'])) {
+      $primary = TRUE;
+    }
+
+    if ($primary) {
+      $style_class = 'btn-';
+    } else  {
+      $style_class = 'btn-outline-';
+    }
+
+    $style_class = $style_class . _radix_overrides_button_text_to_class($button_text);
+
+    $attributes['class'][] = $style_class;
+  }
+}
+
+/**
+ * Implements template_preprocess_select().
+ */
+function radix_overrides_preprocess_select(&$variables) {
+
+  if (isset($variables['element'])) {
+    $select = &$variables['element'];
+    if (!empty($select['#select2'])) {
+      $select['#select2']['searchInputPlaceholder'] = 'Search';
+    }
+  }
 
 }
+
 
 /**
  * Converts a link render element to an action link.
