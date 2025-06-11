@@ -25,12 +25,15 @@
     content: primary
   }%}
 {% endif %}
+{# reset nav_utility_classes #}
+{% set nav_utility_classes = [] %}
 {% if secondary %}
   <h2 class="visually-hidden">{{ 'Secondary tabs'|t }}</h2>
-  {% include 'radix_overrides:local-tasks-nav' with {
+  {{ include ('radix_overrides:local-tasks-nav', {
     nav_utility_classes : [
-      'tabs--secondary pagination pagination-sm'
+      'tabs--secondary nav nav-tabs'
     ],
     content: secondary
-  }%}
+  }, with_context =  false)
+  }}
 {% endif %}
