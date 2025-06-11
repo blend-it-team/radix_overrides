@@ -1,0 +1,70 @@
+:root {
+  --rdx-table-row--dragging-bg-color: var(--bs-warning-bg-subtle);
+  --rdx-table-row--last-dragged-bg-color: var(--bs-warning-bg-subtle);
+  --rdx-table-row--draggable-handle-bg: url("../../icons/arrows-move.svg");
+  --rdx-table-row--draggable-handle-y-bg: url("../../icons/grip-vertical.svg");
+}
+
+tr.draggable.drag,
+tr.draggable.drag:focus {
+  --bs-table-bg: var(--table-row--dragging-bg-color);
+}
+
+tr.draggable.drag-previous {
+  --bs-table-bg: var(--table-row--last-dragged-bg-color);
+}
+
+tr.draggable .form-group {
+  margin-bottom: 0 !important;
+}
+
+tr.draggable a.tabledrag-handle {
+  margin-inline-start: 0;
+  display: block;
+  overflow: visible;
+  height: auto;
+  width: auto;
+  margin: 0;
+  padding: 0;
+}
+
+tr.draggable a.tabledrag-handle .handle {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: middle;
+  color: green;
+  background-image: none;
+  background-color: var(--bs-emphasis-color);
+  mask-image: var(--rdx-table-row--draggable-handle-bg);
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-image: var(--rdx-table-row--draggable-handle-bg);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  transform: scale(1);
+  transition: opacity 0.1s ease-in-out 0s;
+  opacity: 0.5;
+}
+
+tr.draggable a.tabledrag-handle .handle:hover,
+tr.draggable a.tabledrag-handle .handle:focus {
+  opacity: 1;
+
+}
+
+tr.draggable a.tabledrag-handle.tabledrag-handle-y {
+  cursor: grab;
+}
+tr.draggable.drag {
+  opacity: 0.5;
+}
+tr.draggable.drag,
+tr.draggable.drag a.tabledrag-handle.tabledrag-handle-y{
+  cursor: grabbing;
+}
+
+tr.draggable a.tabledrag-handle.tabledrag-handle-y .handle {
+  mask-image: var(--rdx-table-row--draggable-handle-y-bg);
+  -webkit-mask-image: var(--rdx-table-row--draggable-handle-y-bg);
+}

@@ -62,7 +62,7 @@ drupal.tabledrag:
     assets/ui_suite/js/misc/tabledrag.js: {}
   css:
     component:
-      assets/ui_suite/css/component/tabledrag.css: {}
+      assets/css/component/tabledrag.css: {}
   dependencies:
     - core/jquery
     - core/drupal
