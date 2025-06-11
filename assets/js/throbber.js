@@ -19,18 +19,9 @@
         ? Drupal.theme('ajaxProgressMessage', message)
         : '';
 
-    if (messageMarkup === '') {
-      const defaultMessage = Drupal.t('Loading...');
-      return `<span class="ajax-progress ajax-progress-throbber">
-        <span class="spinner-border spinner-border-sm mx-1" role="status">
-          <span class="visually-hidden">${defaultMessage}</span>
-        </span>
-      </span>`;
-    }
-
     return `<div class="ajax-progress ajax-progress-throbber">
+      <span class="visually-hidden">${messageMarkup}</span>
       <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-      ${messageMarkup}
     </div>`;
   };
 
