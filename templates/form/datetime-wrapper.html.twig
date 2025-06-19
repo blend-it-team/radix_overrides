@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Theme override of a datetime form wrapper.
+ *
+ * @see template_preprocess_form_element()
+ */
+#}
+{%
+  set title_classes = [
+  'form-label',
+  required ? 'js-form-required',
+  required ? 'form-required',
+  errors ? 'has-error',
+]
+%}
+<div class="form-item form-datetime-wrapper">
+  {% if title %}
+    <label{{ title_attributes.addClass(title_classes) }}>{{ title }}</label>
+  {% endif %}
+  {{ content }}
+  {% if errors %}
+    <div class="form-item__error-message">
+      {{ errors }}
+    </div>
+  {% endif %}
+  {% if description %}
+    <div{{ description_attributes.addClass('description form-text text-muted') }}>
+      {{ description }}
+    </div>
+  {% endif %}
+</div>
