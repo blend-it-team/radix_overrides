@@ -1,0 +1,122 @@
+.ck {
+  --ck-color-text: var(--bs-body-color);
+
+  --ck-color-toolbar-background: var(--bs-tertiary-bg);
+  --ck-color-toolbar-border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+
+  --ck-color-base-foreground: var(--bs-body-bg);
+  --ck-color-base-background: var(--bs-body-bg);
+  --ck-color-base-border: var(--bs-border-color);
+
+
+
+  --ck-color-panel-background: var(--bs-body-bg);
+  --ck-color-panel-border: var(--bs-body-bg);
+
+  --ck-color-button-default-background: transparent;
+  --ck-color-button-default-hover-background: var(--gin-color-primary-light);
+  --ck-color-button-default-active-background: var(--gin-color-primary-light-active);
+  --ck-color-button-default-disabled-background: transparent;
+
+  --ck-color-button-on-color: var(--bs-primary);
+  --ck-color-button-on-background: var(--bs-primary-bg-subtle);
+  --ck-color-button-on-hover-background: var(--bs-primary-bg-subtle);
+  --ck-color-button-on-active-background: var(--bs-primary-bg-subtle);
+
+  --ck-color-split-button-hover-background: var(--gin-bg-layer2);
+  --ck-color-split-button-hover-border: var(--gin-border-color-layer);
+
+  --ck-color-button-save: var(--bs-success);
+  --ck-color-button-cancel: var(--bs-danger);
+
+  --ck-color-link-default: var(--bs-primary);
+  --ck-color-link-selected-background: var(--bs-primary-bg-subtle);
+
+  --ck-color-input-background: var(--bs-body-bg);
+  --ck-color-input-border: var(--bs-secondary-bg);
+
+  --ck-color-labeled-field-label-background: var(--gin-bg-layer3);
+
+  --ck-color-list-background: var(--gin-bg-layer3);
+
+  --ck-focus-ring: var(--bs-border-width) var(--bs-border-style) var(--bs-focus-ring-color);
+  --ck-focus-outer-shadow: 0 0 0 var(--bs-focus-ring-width) var( --bs-focus-ring-color);
+  --ck-inner-shadow: var(--ck-focus-outer-shadow);
+  --ck-drop-shadow: var(--bs-focus-ring-width) solid var( --bs-focus-ring-color);
+
+  --ck-color-focus-border: var(--bs-focus-ring-color);
+  --ck-color-widget-type-around-button-active: var(--bs-focus-ring-color);
+  --ck-color-widget-blurred-border: var(--bs-primary);
+  --ck-color-widget-hover-border: var(--bs-primary);
+  --ck-color-widget-type-around-button-hover: var(--bs-body-color);
+
+  --ck-color-image-caption-text: var(--gin-color-text-light);
+  --ck-color-image-caption-background: transparent;
+
+  --ck-border-radius: var(--bs-border-radius);
+
+
+// Overrides
+.ck-content blockquote,
+.ck.ck-dropdown__panel {
+  border: none;
+}
+
+  &.ck-sticky-panel .ck-sticky-panel__content.ck-sticky-panel__content_sticky {
+    z-index: 2;
+  }
+
+  &[data-fullscreen="fullscreeneditor"] .ck-sticky-panel__content.ck-sticky-panel__content_sticky {
+    inset-block-start: 0 !important;
+  }
+
+  .ck-toolbar__separator {
+    opacity: .3;
+  }
+
+  .ck-toolbar_grouping:focus,
+  .ck-toolbar__items:focus {
+
+  }
+
+
+
+  .ck-button[aria-pressed=true] {
+    color: var(--bs-primary-text-emphasis);
+    border: 2px solid var(--bs-primary);
+  }
+
+
+
+  &.ck-button:not(.ck-disabled):hover {
+    color: var(--bs-primary);
+  }
+
+  .ck-source-editing-area {
+    overflow: inherit;
+  }
+
+  textarea {
+    color: var(--ck-color-text);
+    background: var(--ck-color-base-background);
+
+    &:focus {
+      outline: none;
+      box-shadow: var(--ck-focus-outer-shadow);
+    }
+  }
+
+  .ck.ck-media-alternative-text-form .ck-button {
+    border: none;
+  }
+
+  .ck-content .drupal-media > figcaption {
+    color: var(--ck-color-image-caption-text);
+    background: var(--ck-color-image-caption-background);
+  }
+
+  .ck.ck.ck-balloon-panel.ck-powered-by-balloon {
+    z-index: 2;
+    transform: translateY(-13px);
+  }
+}

@@ -1,0 +1,22 @@
+.js-filter-wrapper{
+  background-color: var(--bs-tertiary-bgg);
+  border-radius: var(--bs-border-radius);
+  border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+  padding: 1rem 1.25rem;
+  padding-bottom: 0;
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.js-form-type-textarea:has(+ .js-filter-wrapper) {
+  margin-bottom: 0 !important;
+
+  & .js-text-full{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  & .ck-editor__editable{
+    --ck-border-radius: 0;
+  }
+}

@@ -95,3 +95,15 @@ drupal.vertical-tabs:
     - core/drupal
     - core/drupalSettings
     - core/drupal.form
+
+ckeditor5:
+  version: VERSION
+  css:
+    theme:
+      assets/css/component/ckeditor5.css: {}
+
+filter:
+  version: VERSION
+  css:
+    component:
+      assets/css/component/filter.theme.css: {}

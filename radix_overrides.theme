@@ -6,13 +6,11 @@
  */
 
 use Drupal\Component\Utility\NestedArray;
-use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
-
-
+use Drupal\radix_overrides\RadixOverridesPreRender;
 
 function _radix_overrides_button_text_to_class($button_text) {
   $button_mapping_styles = [
@@ -244,5 +242,25 @@ function radix_overrides_preprocess_entity_add_list(&$variables) {
     if (isset($values['description']['#markup']) && empty($values['description']['#markup'])) {
       $variables['bundles'][$type_id]['description'] = [];
     }
+  }
+}
+
+/**
+ * Implements template_preprocess_text_format_wrapper()
+ */
+function radix_overrides_preprocess_text_format_wrapper(&$variables) {
+  //dump($variables);
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function radix_overrides_element_info_alter(&$info): void {
+  if (array_key_exists('text_format', $info)) {
+    $info['text_format']['#pre_render'][] = [RadixOverridesPreRender::class, 'textFormat'];
+  }
+
+  if (isset($info['status_messages'])) {
+    $info['status_messages']['#pre_render'][] = [RadixOverridesPreRender::class, 'messagePlaceholder'];
   }
 }

@@ -44,6 +44,9 @@
  * @see template_preprocess_form_element()
  */
 #}
+{% set attributes = attributes ?: create_attribute() %}
+{# If use of floating-label place label after the input #}
+{% set label_display = attributes.hasClass('form-floating') ? 'after' : 'before' %}
 {%
   include "radix:form-element" with {
     errors,

@@ -110,3 +110,7 @@ libraries-extend:
     - radix_overrides/drupal.progress
   core/drupal.tabledrag:
     - radix_overrides/drupal.tabledrag
+  core/ckeditor5:
+    - radix_overrides/ckeditor5
+  filter/drupal.filter:
+    - radix_overrides/filter
