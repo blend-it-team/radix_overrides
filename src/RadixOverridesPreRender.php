@@ -21,7 +21,6 @@ class RadixOverridesPreRender implements TrustedCallbackInterface {
     $element['format']['format']['#weight'] = -10;
     $element['format']['format']['#wrapper_attributes']['class'][] = 'form-floating';
     $element['format']['format']['#wrapper_attributes']['class'][] = 'mb-1';
-    $element['format']['format']['#form_group'] = FALSE;
 
     $element['format']['format']['#title_display'] = 'after';
 

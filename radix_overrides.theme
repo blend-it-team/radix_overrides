@@ -246,13 +246,6 @@ function radix_overrides_preprocess_entity_add_list(&$variables) {
 }
 
 /**
- * Implements template_preprocess_text_format_wrapper()
- */
-function radix_overrides_preprocess_text_format_wrapper(&$variables) {
-  //dump($variables);
-}
-
-/**
  * Implements hook_element_info_alter().
  */
 function radix_overrides_element_info_alter(&$info): void {
