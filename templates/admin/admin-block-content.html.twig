@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * Gin's theme implementation for the content of an administrative block.
+ *
+ * Available variables:
+ * - content: List of administrative menu items. Each menu item contains:
+ *   - link: Link to the admin section.
+ *   - title: Short name of the section.
+ *   - description: Description of the administrative menu item.
+ * - attributes: HTML attributes to be added to the element.
+ * - compact: Boolean indicating whether compact mode is turned on or not.
+ *
+ * @see template_preprocess_admin_block_content()
+ * @see claro_preprocess_admin_block_content()
+ */
+#}
+{% if content %}
+  <div{{ attributes.addClass('list-group') }}>
+    {% for item in content %}
+      {% set item_attributes = item.url.getOption('attributes') ?: {} %}
+      {% set link_attributes = create_attribute(item_attributes).addClass('list-group-item', 'list-group-item-action', 'py-3') %}
+      <a href="{{ item.url }}"{{ link_attributes|without('href') }}>
+        <h6 class="fw-semibold mb-0">{{ item.title }}</h6>
+        {% if item.description %}
+          <p class="mb-0 opacity-50">{{ item.description }}</p>
+        {% endif %}
+      </a>
+    {% endfor %}
+  </div>
+{% endif %}
