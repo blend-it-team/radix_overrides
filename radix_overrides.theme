@@ -100,7 +100,10 @@ function radix_overrides_preprocess_select(&$variables) {
   if (isset($variables['element'])) {
     $select = &$variables['element'];
     if (!empty($select['#select2'])) {
-      $select['#select2']['searchInputPlaceholder'] = 'Search';
+      // If is not scalar, update the placeholder.
+      if (isset($select['#select2']['searchInputPlaceholder']) && !is_scalar($select['#select2']['searchInputPlaceholder'])) {
+        $select['#select2']['searchInputPlaceholder'] = 'Search';
+      }
     }
   }
 
