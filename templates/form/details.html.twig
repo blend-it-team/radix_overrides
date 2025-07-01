@@ -25,8 +25,6 @@ Check if this is a field_group context by looking for specific classes,
 attributes, or if it's a regular accordion context
 #}
 {% set is_field_group = attributes.hasClass('field-group-tab') or
-  attributes.hasClass('field-group-accordion') or
-  attributes.hasClass('field-group-details') or
   attributes.hasClass('field-group-bootstrap_grid_col') or
   attributes.hasAttribute('data-field-group') or
   element['#field_group'] is defined %}
