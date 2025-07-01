@@ -1,108 +1,204 @@
 {#
 /**
  * @file
- * Default theme implementation for a details element.
+ * Theme override for a details element.
  *
  * Available variables
  * - attributes: A list of HTML attributes for the details element.
  * - errors: (optional) Any errors for this details element, may not be set.
  * - title: (optional) The title of the element, may not be set.
- * - summary_attributes: A list of HTML attributes for the summary element.
  * - description: (optional) The description of the element, may not be set.
  * - children: (optional) The children of the element, may not be set.
  * - value: (optional) The value of the element, may not be set.
+ * - accordion: whether the details element should look as an accordion.
+ * - accordion_item: whether the details element is an item of an accordion
+ *   list.
+ * - disabled: whether the details is disabled.
  *
  * @see template_preprocess_details()
- *
- * @ingroup themeable
+ * @see claro_preprocess_details()
  */
 #}
-{% set accordion_id = 'accordion--' ~ random() %}
-{% set accordion_item_id = 'heading--' ~ accordion_id %}
-{% set accordion_attributes = create_attribute(accordion_attributes|default({})) %}
-{% set accordion_attributes = accordion_attributes.addClass('accordion').setAttribute('id', accordion_id) %}
-{%
-  set summary_classes = [
-  required ? 'js-form-required',
-  required ? 'form-required',
-  'accordion-header',
-]
-%}
-{%
-  set button_attributes = create_attribute({
-  'class': [
-    'accordion-button',
-    'collapsed',
-    'gap-1',
-  ],
-  'type': 'button',
-  'data-bs-toggle': 'collapse',
-  'data-bs-target': '#' ~ accordion_item_id,
-  'aria-controls': accordion_item_id,
-  'aria-expanded': 'false',
-})
-%}
-{%
-  set content_attributes = create_attribute({
-  'id': accordion_item_id,
-  'class': [
-    'accordion-collapse',
-    'collapse',
-  ],
-  'aria-labelledby': 'heading--' ~ accordion_item_id,
-  'data-bs-parent': '#' ~ accordion_id,
-})
-%}
-{% if attributes.hasAttribute('open') %}
-  {% set button_attributes = button_attributes.setAttribute('aria-expanded', 'true') %}
-  {% set button_attributes = button_attributes.removeClass('collapsed') %}
-  {% set content_attributes = content_attributes.addClass('show') %}
-{% endif %}
 
-{%
-  set description_classes = [
-  'description',
-  'form-text',
-]
-%}
-{% set description_attributes = create_attribute(description_attributes|default({})) %}
+{#
+Check if this is a field_group context by looking for specific classes,
+attributes, or if it's a regular accordion context
+#}
+{% set is_field_group = attributes.hasClass('field-group-tab') or
+  attributes.hasClass('field-group-accordion') or
+  attributes.hasClass('field-group-details') or
+  attributes.hasClass('field-group-bootstrap_grid_col') or
+  attributes.hasAttribute('data-field-group') or
+  element['#field_group'] is defined %}
+{% set is_accordion = accordion or accordion_item %}
 
-<div{{ accordion_attributes }}>
-  <div{{ attributes.addClass('accordion-item') }}>
+{#
+If it's a field_group context, use the standard details structure
+If it's an accordion context, use Bootstrap 5 accordion structure
+#}
+{% if is_field_group or attributes.hasClass('list-fields') or attributes.hasClass('card-body') or attributes.hasClass('field-group-bootstrap_grid_col') %}
+  {%
+    set classes = [
+    'card',
+    accordion ? 'bootstrap-details--accordion',
+    accordion_item ? 'bootstrap-details--accordion-item',
+    element['#module_package_listing'] ? 'bootstrap-details--package-listing',
+  ]
+  %}
+  {%
+    set content_wrapper_classes = [
+    'card-body bootstrap-details__wrapper',
+    accordion ? 'bootstrap-details__wrapper--accordion',
+    accordion_item ? 'bootstrap-details__wrapper--accordion-item',
+    element['#module_package_listing'] ? 'bootstrap-details__wrapper--package-listing',
+  ]
+  %}
+  {%
+    set inner_wrapper_classes = [
+    'bootstrap-details__content',
+    accordion ? 'bootstrap-details__content--accordion',
+    accordion_item ? 'bootstrap-details__content--accordion-item',
+    element['#module_package_listing']  ? 'bootstrap-details__content--package-listing',
+  ]
+  %}
+
+  <details{{ attributes.addClass(classes) }}>
     {%- if title -%}
-      <h2{{ summary_attributes.addClass(summary_classes).setAttribute('id', 'heading--' ~ accordion_item_id) }}>
-        <button{{ button_attributes }}>
-          {{- title -}}
-          {%- if required -%}
-            <span class="required-mark"></span>
-          {%- endif -%}
-        </button>
-      </h2>
+      {%
+        set summary_classes = [
+        'card-header bootstrap-details__summary',
+        required ? 'js-form-required',
+        required ? 'form-required',
+        accordion ? 'bootstrap-details__summary--accordion',
+        accordion_item ? 'bootstrap-details__summary--accordion-item',
+        element['#module_package_listing']  ? 'bootstrap-details__summary--package-listing',
+      ]
+      %}
+      <summary{{ summary_attributes.addClass(summary_classes) }}>
+        {{- title -}}
+        {%- if required -%}
+          <span class="required-mark"></span>
+        {%- endif -%}
+        <span class="caret"></span>
+      </summary>
     {%- endif -%}
-
-    <div{{ content_attributes }}>
-      <div class="accordion-body">
-        {% if description %}
-          <div{{ description_attributes.addClass(description_classes) }}>
-            {{ description }}
-          </div>
+    <div{{ content_attributes.addClass(content_wrapper_classes) }}>
+      {% if accordion or accordion_item %}
+      <div{{ create_attribute({class: inner_wrapper_classes}) }}>
         {% endif %}
 
-        {{ children }}
-        {{ value }}
-
         {% if errors %}
-          {#
-          Bootstrap 5 expects direct parent of error wrapper to have the
-          is-invalid class. Currently hard or almost impossible to add it in
-          other preprocess on the children variable.
-          #}
-          <div class="is-invalid"></div>
-          <div{{ errors_attributes }}>
+          <div class="form-item form-item--error-message">
             {{ errors }}
           </div>
         {% endif %}
+        {%- if description -%}
+          <div class="bootstrap-details__description{{ disabled ? ' is-disabled' }}">{{ description }}</div>
+        {%- endif -%}
+        {%- if children -%}
+          {{ children }}
+        {%- endif -%}
+        {%- if value -%}
+          {{ value }}
+        {%- endif -%}
+
+        {% if accordion or accordion_item %}
+      </div>
+      {% endif %}
+    </div>
+  </details>
+
+{% else %}
+  {#
+  Bootstrap 5 Accordion structure for non-field_group contexts
+  #}
+  {% set accordion_id = 'accordion--' ~ random() %}
+  {% set accordion_item_id = 'heading--' ~ accordion_id %}
+  {% set accordion_attributes = create_attribute(accordion_attributes|default({})) %}
+  {% set accordion_attributes = accordion_attributes.addClass('accordion').setAttribute('id', accordion_id) %}
+  {%
+    set summary_classes = [
+    required ? 'js-form-required',
+    required ? 'form-required',
+    'accordion-header',
+  ]
+  %}
+  {%
+    set button_attributes = create_attribute({
+    'class': [
+      'accordion-button',
+      'collapsed',
+      'gap-1',
+    ],
+    'type': 'button',
+    'data-bs-toggle': 'collapse',
+    'data-bs-target': '#' ~ accordion_item_id,
+    'aria-controls': accordion_item_id,
+    'aria-expanded': 'false',
+  })
+  %}
+  {%
+    set content_attributes = create_attribute({
+    'id': accordion_item_id,
+    'class': [
+      'accordion-collapse',
+      'collapse',
+    ],
+    'aria-labelledby': 'heading--' ~ accordion_item_id,
+    'data-bs-parent': '#' ~ accordion_id,
+  })
+  %}
+  {% if attributes.hasAttribute('open') %}
+    {% set button_attributes = button_attributes.setAttribute('aria-expanded', 'true') %}
+    {% set button_attributes = button_attributes.removeClass('collapsed') %}
+    {% set content_attributes = content_attributes.addClass('show') %}
+  {% endif %}
+
+  {%
+    set description_classes = [
+    'description',
+    'form-text',
+  ]
+  %}
+  {% set description_attributes = create_attribute(description_attributes|default({})) %}
+
+  <div{{ accordion_attributes }}>
+    <div{{ attributes.addClass('accordion-item') }}>
+      {%- if title -%}
+        <h2{{ summary_attributes.addClass(summary_classes).setAttribute('id', 'heading--' ~ accordion_item_id) }}>
+          <button{{ button_attributes }}>
+            {{- title -}}
+            {%- if required -%}
+              <span class="required-mark"></span>
+            {%- endif -%}
+          </button>
+        </h2>
+      {%- endif -%}
+
+      <div{{ content_attributes }}>
+        <div class="accordion-body">
+          {% if description %}
+            <div{{ description_attributes.addClass(description_classes) }}>
+              {{ description }}
+            </div>
+          {% endif %}
+
+          {{ children }}
+          {{ value }}
+
+          {% if errors %}
+            {#
+            Bootstrap 5 expects direct parent of error wrapper to have the
+            is-invalid class. Currently hard or almost impossible to add it in
+            other preprocess on the children variable.
+            #}
+            <div class="is-invalid"></div>
+            <div{{ errors_attributes }}>
+              {{ errors }}
+            </div>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>
-</div>
+{% endif %}
