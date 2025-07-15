@@ -35,7 +35,10 @@ function _radix_overrides_button_text_to_class($button_text) {
 function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
   if (isset($form['actions'])) {
-    $form['actions']['#attributes']['class'][] = 'hstack gap-2 mb-3 align-items-end';
+    $form['actions']['#attributes']['class'][] = 'hstack';
+    $form['actions']['#attributes']['class'][] = 'gap-2';
+    $form['actions']['#attributes']['class'][] = 'mb-3';
+    $form['actions']['#attributes']['class'][] = 'align-items-end';
     foreach ($form['actions'] as $key => &$action) {
       if (isset($action['#type']) && $action['#type'] == 'link') {
         $attributes = &$action['#attributes'];
