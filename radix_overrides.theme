@@ -58,6 +58,33 @@ function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $for
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter() for 'node_preview_form_select'.
+ */
+function radix_overrides_form_node_preview_form_select_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+
+  $form_class = [
+    'd-flex',
+    'position-fixed',
+    'justify-content-between',
+    'align-items-center',
+    'top-0',
+    'start-0',
+    'end-0',
+    'p-2',
+    'border-bottom',
+  ];
+
+  if (isset($form['#attributes']['class'])) {
+    $form['#attributes']['class'] = array_merge($form_class, $form['#attributes']['class']);
+  } else {
+    $form['#attributes']['class'] = $form_class;
+  }
+
+  $form['#attributes']['style'] = 'z-index:999; background-color: rgba(var(--bs-body-bg-rgb) , 0.9);';
+  $form['backlink']['#options']['attributes']['class'][] = 'btn btn-link m-s-2';
+}
+
+/**
  * Implements template_preprocess_input().
  */
 function radix_overrides_preprocess_input(&$variables) {
