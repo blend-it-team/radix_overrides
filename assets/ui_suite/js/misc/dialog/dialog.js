@@ -171,6 +171,11 @@
           .addClass(settings.dialogClasses);
       }
 
+      if (settings.maxWidth) {
+        $element.find('.modal-dialog').css('max-width', settings.maxWidth + 'px');
+        $element.find('.modal').css('--bs-modal-width', settings.maxWidth + 'px');
+      }
+
       // For Media library widget.
       if (
         settings.classes !== undefined &&

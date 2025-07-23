@@ -1,0 +1,95 @@
+.view-media-entity-browser {
+
+  .view-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .views-row {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    padding: 5px;
+    margin: 2.5px;
+    width: calc(33.3% - 5px);
+    overflow: hidden;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 1px 6px 0 rgba(0,34,51,.1), 0 0 0 1px rgba(0,34,51,.1);
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      aspect-ratio: 350 / 200;
+      background-color: #f0f0f0;
+      border-radius: 5px;
+    }
+  }
+
+  .views-row:after{
+    display: none;
+    content: " ";
+    position: absolute;
+    top: 10px;
+    left: auto;
+    right: 10px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    pointer-events: none;
+    background-size: 30px;
+    background-color: #f0f0f0;
+  }
+
+  .views-row.checked {
+    border-radius: 5px;
+  }
+
+  .views-row.checked:after,
+  .views-row:hover:checked:after,
+  .views-row:hover:after {
+    display: block;
+  }
+
+  .views-row.checked,
+  .views-row.checked:after {
+    border: 2px solid #37802f;
+    background-size: 30px;
+  }
+
+  .views-field-name {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+  }
+
+  .views-field-name .media-info {
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: white-space 0.2s ease-in-out;
+  }
+
+  .views-row:hover .views-field-name .media-info {
+    white-space: normal;
+  }
+
+  .views-field-entity-browser-select {
+    position: absolute !important;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+}

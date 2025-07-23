@@ -102,6 +102,12 @@ ckeditor5:
     theme:
       assets/css/component/ckeditor5.css: {}
 
+media_entity_browser.view:
+  version: VERSION
+  css:
+    theme:
+      assets/css/component/media_entity_browser.view.css: {}
+
 filter:
   version: VERSION
   css:

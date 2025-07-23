@@ -52,6 +52,9 @@ libraries-override:
         misc/dialog/off-canvas/css/wrapper.css: false
   core/drupal.dropbutton: false
   core/drupal.tableheader: false
+#  entity_browser/entity_reference: false
+#  entity_browser/common: false
+#  entity_browser/modal: false
   layout_builder/drupal.layout_builder:
     css:
       theme:
@@ -114,3 +117,5 @@ libraries-extend:
     - radix_overrides/ckeditor5
   filter/drupal.filter:
     - radix_overrides/filter
+  media_entity_browser/view:
+    - radix_overrides/media_entity_browser.view
