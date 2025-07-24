@@ -10,4 +10,9 @@
  * @see template_preprocess_input()
  */
 #}
+{# Fix field UI #}
+{% if attributes.id == 'edit-refresh' %}
+  <input{{attributes}}>{{ children }}
+{% else %}
 <button{{ attributes }}>{{attributes.value}}</button>{{ children }}
+{% endif %}
