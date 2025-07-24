@@ -46,8 +46,8 @@
 #}
 {% set attributes = attributes ?: create_attribute() %}
 
-{% do attributes.addClass('form-floating', 'w-50', 'p-0', 'm-0')  %}
-{% do attributes.setAttribute('style', 'margin:0 !important')  %}
+{% do attributes.addClass('form-floating', 'p-0', 'm-0')  %}
+{% do attributes.setAttribute('style', 'width:400px;margin:0 !important')  %}
 {% set label_display = 'after' %}
 {%
   include "radix:form-element" with {
