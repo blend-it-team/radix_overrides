@@ -30,6 +30,21 @@ function _radix_overrides_button_text_to_class($button_text) {
 }
 
 /**
+ * Implements hook_preprocess_page().
+ */
+function radix_overrides_preprocess_page(&$variables) {
+  // Remove title in header (ex : batch module place title in header region).
+  if (isset($variables['page']['header']['#type']) && $variables['page']['header']['#type'] == 'page_title') {
+    $variables['page']['header']['#region'] = 'content';
+    $variables['page']['header']['#weight'] = -99;
+
+    $variables['page']['content']['header'] = $variables['page']['header'];
+    unset($variables['page']['header']);
+  }
+
+}
+
+/**
 * Implements hook_form_alter().
 */
 function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $form_id) {

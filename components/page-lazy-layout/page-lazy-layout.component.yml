@@ -1,0 +1,32 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json
+name: Page Layout Fullwidth
+status: experimental
+description: 'A full page layout structure that could be customize trough CSS variables'
+group: Layout
+props:
+  type: object
+  properties:
+    page_attributes:
+      type: Drupal\Core\Template\Attribute
+      description: 'HTML attributes for the page component.'
+    page_utility_classes:
+      type: array
+      items:
+        type: string
+      description: 'Additional utility classes added to the page component.'
+slots:
+  page_header:
+    title: Page header
+    description: 'The navigation section of the page.'
+  page_header_expanded:
+    title: Page Header expanded
+    description: 'The navigation section of the page.'
+  page_sidebar:
+    title: Page Sidebar
+    description: 'The navigation section of the page.'
+  page_sidebar_footer:
+    title: Page Content
+    description: 'The main content area of the page.'
+  page_content:
+    title: Page Content
+    description: 'The main content area of the page.'
