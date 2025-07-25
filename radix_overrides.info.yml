@@ -122,5 +122,7 @@ libraries-extend:
     - radix_overrides/ckeditor5
   filter/drupal.filter:
     - radix_overrides/filter
+  media_entity_browser/view:
+    - radix_overrides/media_entity_browser.view
   tagify/default:
     - radix_overrides/tagify
