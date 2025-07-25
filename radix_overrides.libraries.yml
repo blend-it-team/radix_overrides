@@ -101,6 +101,34 @@ ckeditor5:
   css:
     theme:
       assets/css/component/ckeditor5.css: {}
+tagify:
+  version: VERSION
+  css:
+    theme:
+      assets/css/component/tagify.css: {}
+tagify.tagify:
+  version: VERSION
+  js:
+    /libraries/yaireo--tagify/dist/tagify.js: {}
+  css:
+    component:
+      /libraries/yaireo--tagify/dist/tagify.css: {}
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupal
+    - core/drupal.debounce
+    - core/sortable
+tagify.tagify_polyfils:
+  version: VERSION
+  js:
+    /libraries/yaireo--tagify/dist/tagify.polyfills.min.js: {}
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupal
+    - core/drupal.debounce
+
 
 media_entity_browser.view:
   version: VERSION
