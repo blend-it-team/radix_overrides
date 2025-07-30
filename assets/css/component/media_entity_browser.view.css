@@ -1,4 +1,5 @@
 .view-media-entity-browser {
+    padding-bottom: 70px;
 
   .view-content {
     display: flex;
@@ -11,12 +12,16 @@
     display: inline-flex;
     flex-direction: column;
     padding: 5px;
-    margin: 2.5px;
-    width: calc(33.3% - 5px);
+    margin: 7.5px;
+    width: calc(33.3% - 15px);
     overflow: hidden;
-    border: none;
+    border: 2px solid transparent;
     border-radius: 5px;
     box-shadow: 0 1px 6px 0 rgba(0,34,51,.1), 0 0 0 1px rgba(0,34,51,.1);
+
+    @media (max-width: 767px) {
+      width: calc(100% - 15px);
+    }
 
     img {
       display: block;
@@ -44,6 +49,8 @@
     pointer-events: none;
     background-size: 30px;
     background-color: #f0f0f0;
+    background-image: url('../../../assets/icons/check2.svg');
+    box-shadow: 0 1px 6px 0 rgba(0,34,51,.1), 0 0 0 1px rgba(0,34,51,.1);
   }
 
   .views-row.checked {
@@ -58,31 +65,32 @@
 
   .views-row.checked,
   .views-row.checked:after {
-    border: 2px solid #37802f;
+    border: 2px solid var(--bs-secondary);
     background-size: 30px;
   }
 
+  .views-row.checked:after {
+    background-color: var(--bs-secondary);
+    background-image: url('../../../assets/icons/check2-white.svg');
+  }
+
   .views-field-name {
-    position: absolute;
-    bottom: 5px;
-    left: 5px;
-    right: 5px;
+    position: relative;
   }
 
   .views-field-name .media-info {
+    position: relative;
     box-sizing: border-box;
     max-width: 100%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.5);
-    transition: white-space 0.2s ease-in-out;
-  }
+    background-color: white;
+    color: rgba(0,34,51,.8);
 
-  .views-row:hover .views-field-name .media-info {
-    white-space: normal;
+    [class^="media-info--"] {
+      display: none
+    }
   }
 
   .views-field-entity-browser-select {
@@ -92,4 +100,15 @@
     overflow: hidden;
   }
 
+}
+
+.form-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 15px;
+  text-align: right;
+  background-color: white;
+  z-index: 9;
 }

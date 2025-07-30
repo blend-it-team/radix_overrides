@@ -135,6 +135,8 @@ media_entity_browser.view:
   css:
     theme:
       assets/css/component/media_entity_browser.view.css: {}
+  js:
+    assets/js/media_entity_browser.view.js: {}
 
 filter:
   version: VERSION
