@@ -192,6 +192,38 @@
     }
   };
 
+  // Add custom command to handle entity browser selection and close modal
+  Drupal.AjaxCommands.prototype.select_entities = (ajax, response, status) => {
+    const uuid = drupalSettings.entity_browser.modal.uuid;
+
+    $(':input[data-uuid="' + uuid + '"]').trigger('entities-selected', [uuid, response.entities])
+      .removeClass('entity-browser-processed').unbind('entities-selected');
+
+    // Only close the modal dialog after selection if entities were actually selected
+    if (response.entities && response.entities.length > 0) {
+      const $modal = $('.modal.show');
+      if ($modal.length) {
+        $modal.modal('hide');
+      }
+    }
+  };
+
+  // Add behavior to handle entity browser selection completion
+  Drupal.behaviors.entityBrowserModalClose = {
+    attach: function (context, settings) {
+      // Listen for entity browser selection completion - only close when entities are actually selected
+      $(document).on('entities-selected', function (event, uuid, entities) {
+        // Only close any open Bootstrap modals if entities were actually selected
+        if (entities && entities.length > 0) {
+          const $modal = $('.modal.show');
+          if ($modal.length) {
+            $modal.modal('hide');
+          }
+        }
+      });
+    }
+  };
+
   // eslint-disable-next-line
   $(window).on("dialog:aftercreate", (e, dialog, $element, settings) => {
     // eslint-disable-next-line

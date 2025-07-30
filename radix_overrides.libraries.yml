@@ -24,6 +24,7 @@ drupal.dialog:
 drupal.dialog.ajax:
   js:
     assets/ui_suite/js/misc/dialog/dialog.ajax.js: {}
+    assets/js/entity_browser_debug.js: {}
   dependencies:
     - core/jquery
     - core/drupal
@@ -137,6 +138,17 @@ media_entity_browser.view:
       assets/css/component/media_entity_browser.view.css: {}
   js:
     assets/js/media_entity_browser.view.js: {}
+
+entity_browser_fix:
+  version: VERSION
+  js:
+    assets/js/entity_browser_fix.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    - core/drupal.ajax
+
+
 
 filter:
   version: VERSION
