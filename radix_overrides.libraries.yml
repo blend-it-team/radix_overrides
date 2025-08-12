@@ -24,7 +24,6 @@ drupal.dialog:
 drupal.dialog.ajax:
   js:
     assets/ui_suite/js/misc/dialog/dialog.ajax.js: {}
-    assets/js/entity_browser_debug.js: {}
   dependencies:
     - core/jquery
     - core/drupal
