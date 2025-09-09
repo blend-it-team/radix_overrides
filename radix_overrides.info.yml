@@ -80,6 +80,12 @@ libraries-override:
     css:
       theme:
         css/views_data_export.css: false
+  entity_browser/tabs:
+    css:
+      component:
+        css/entity_browser.tabs.css: false
+    js:
+      js/entity_browser.tabs.js: assets/js/entity_browser.tabs.js
   media_library_edit/admin:
     css:
       component:

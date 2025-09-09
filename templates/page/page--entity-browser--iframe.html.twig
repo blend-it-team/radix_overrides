@@ -8,6 +8,13 @@
  */
 #}
 <div class="radix-entity-browser">
+  {% set force_hide = [] %}
+
+  {% for key, item in page.content %}
+    {% if key ends with '_page_title' or key ends with '_breadcrumbs' %}
+      {% set force_hide = force_hide|merge([key]) %}
+    {% endif %}
+  {% endfor %}
 
   {#
   We ommit most of the regions in this template, which generally includes
@@ -20,10 +27,8 @@
 
   <main role="main">
     <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
-
     <div class="layout-content">
-      {{ page.content|without('page_title', 'breadcrumb') }}
-
+      {{ page.content|without(force_hide) }}
     </div>{# /.layout-content #}
 
   </main>

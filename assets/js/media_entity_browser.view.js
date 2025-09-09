@@ -27,7 +27,7 @@
         var $row = $(this);
         var $input = $row.find('.views-field-entity-browser-select input');
         updateClasses($row, $input);
-        $row.closest('form').find('.form-actions').hide();
+        $row.closest('form').find('.form-actions').removeClass('elements-selected');
       });
 
       // Add a checked class when clicked.
@@ -37,10 +37,10 @@
         $input.prop('checked', !$input.prop('checked'));
         updateClasses($row, $input);
         if($('.views-row .views-field-entity-browser-select input').is(':checked')) {
-          $row.closest('form').find('.form-actions').show();
+          $row.closest('form').find('.form-actions').addClass('elements-selected');
         }
         else {
-          $row.closest('form').find('.form-actions').hide();
+          $row.closest('form').find('.form-actions').removeClass('elements-selected');
         }
       });
     }

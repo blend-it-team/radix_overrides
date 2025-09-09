@@ -102,13 +102,24 @@
 
 }
 
-.form-actions {
-  position: fixed;
-  bottom: 0;
+.view-media-entity-browser ~ .form-actions {
+
   left: 0;
   right: 0;
   padding: 15px;
-  text-align: right;
-  background-color: white;
+  transform: translateY(100%);
+  position: fixed;
+  bottom: 0;
+  background-color: rgba(var(--bs-body-bg-rgb), 0.4);
+  backdrop-filter: blur(5px);
   z-index: 9;
+  margin: 0 !important;
+
+  transition: transform 0.3s ease;
+
+  &.elements-selected {
+    transform: translateY(0);
+
+
+  }
 }
