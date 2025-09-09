@@ -61,6 +61,8 @@
 
 .tagify__tag{
   line-height: inherit;
+  margin-inline:5px;
+  margin-block: 5px;
 }
 .tagify__tag__removeBtn{
   font-size: 1.2rem;
