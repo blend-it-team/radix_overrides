@@ -31,10 +31,12 @@ drupal.dialog.ajax:
 
 drupal.dialog.off_canvas:
   js:
-    assets/ui_suite/js/misc/dialog/dialog.off-canvas.js: {}
+    assets/js/dialog.off-canvas.js: {}
+    assets/js/dialog.off-canvas.resizer.js: {}
   css:
     component:
       assets/ui_suite/css/component/off-canvas.css: {}
+      assets/css/component/dialog.off-canvas.resizer.css: {}
   dependencies:
     - core/jquery
     - core/drupal

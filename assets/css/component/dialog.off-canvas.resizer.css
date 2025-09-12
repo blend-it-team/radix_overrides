@@ -1,0 +1,42 @@
+.offcanvas-resizer {
+  position: absolute;
+  top: 0;
+  right: -10px;
+  height: 100%;
+  width: 20px;
+  cursor: ew-resize;
+  touch-action: none;
+}
+
+.offcanvas-resizer::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.offcanvas-start .offcanvas-resizer {
+  right: -10px;
+  left: auto;
+}
+.offcanvas-end .offcanvas-resizer {
+  left: -10px;
+  right: auto;
+}
+.offcanvas-top .offcanvas-resizer {
+  bottom: -10px;
+  cursor: ns-resize;
+  left: 0;
+  width: 100%;
+  height: 20px;
+}
+.offcanvas-bottom .offcanvas-resizer {
+  top: -10px;
+  left: 0;
+  cursor: ns-resize;
+  width: 100%;
+  height: 20px;
+}
