@@ -100,11 +100,11 @@
       settings = event.settings;
 
       // Position
-      if (settings.position === 'side') {
+      if (settings.drupalOffCanvasPosition === 'side') {
         $element.addClass('offcanvas-end');
-      } else if (settings.position === 'top') {
+      } else if (settings.drupalOffCanvasPosition === 'top') {
         $element.addClass('offcanvas-top');
-      } else if (settings.position === 'bottom') {
+      } else if (settings.drupalOffCanvasPosition === 'bottom') {
         $element.addClass('offcanvas-bottom');
       }
 
