@@ -41,7 +41,7 @@
     dialogShowHeaderTitle: true,
     dialogStatic: false,
     drupalAutoButtons: undefined,
-    drupalOffCanvasPosition: 'bottom',
+    drupalOffCanvasPosition: 'side',
     resizable: undefined,
     title: undefined,
     width: undefined,
