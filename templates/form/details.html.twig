@@ -21,20 +21,108 @@
 #}
 
 {#
-Check if this is a field_group context by looking for specific classes,
-attributes, or if it's a regular accordion context
+Check if this is a vertical tabs context vs regular accordion context
 #}
+{% set is_vertical_tabs = is_vertical_tabs|default(false) %}
 {% set is_field_group = attributes.hasClass('field-group-tab') or
   attributes.hasClass('field-group-bootstrap_grid_col') or
   attributes.hasAttribute('data-field-group') or
   element['#field_group'] is defined %}
+
 {% set is_accordion = accordion or accordion_item %}
 
 {#
-If it's a field_group context, use the standard details structure
-If it's an accordion context, use Bootstrap 5 accordion structure
+If it's a vertical tabs context, use the Bootstrap accordion structure that JS expects
+If it's a regular field group context, use the standard details structure
 #}
-{% if is_field_group or attributes.hasClass('list-fields') or attributes.hasClass('card-body') or attributes.hasClass('field-group-bootstrap_grid_col') %}
+{% if is_vertical_tabs %}
+  {#
+  For vertical tabs, we need to generate just the accordion-item structure
+  The parent vertical-tabs.html.twig already provides the .accordion wrapper
+  #}
+  {% set accordion_item_id = 'heading--' ~ random() %}
+  {%
+    set summary_classes = [
+    required ? 'js-form-required',
+    required ? 'form-required',
+    'accordion-header',
+  ]
+  %}
+  {%
+    set button_attributes = create_attribute({
+    'class': [
+      'accordion-button',
+      'collapsed',
+      'gap-1',
+    ],
+    'type': 'button',
+    'data-bs-toggle': 'collapse',
+    'data-bs-target': '#' ~ accordion_item_id,
+    'aria-controls': accordion_item_id,
+    'aria-expanded': 'false',
+  })
+  %}
+  {%
+    set content_attributes = create_attribute({
+    'id': accordion_item_id,
+    'class': [
+      'accordion-collapse',
+      'collapse',
+    ],
+    'aria-labelledby': 'heading--' ~ accordion_item_id,
+  })
+  %}
+  {% if attributes.hasAttribute('open') %}
+    {% set button_attributes = button_attributes.setAttribute('aria-expanded', 'true') %}
+    {% set button_attributes = button_attributes.removeClass('collapsed') %}
+    {% set content_attributes = content_attributes.addClass('show') %}
+  {% endif %}
+
+  {%
+    set description_classes = [
+    'description',
+    'form-text',
+  ]
+  %}
+  {% set description_attributes = create_attribute(description_attributes|default({})) %}
+
+  <div{{ attributes.addClass('accordion-item') }}>
+    {%- if title -%}
+      <h2{{ summary_attributes.addClass(summary_classes).setAttribute('id', 'heading--' ~ accordion_item_id) }}>
+        <button{{ button_attributes }}>
+          {{- title -}}
+          {%- if required -%}
+            <span class="required-mark"></span>
+          {%- endif -%}
+        </button>
+      </h2>
+    {%- endif -%}
+
+    <div{{ content_attributes }}>
+      <div class="accordion-body">
+        {% if description %}
+          <div{{ description_attributes.addClass(description_classes) }}>
+            {{ description }}
+          </div>
+        {% endif %}
+
+        {{ children }}
+        {{ value }}
+
+        {% if errors %}
+          <div class="is-invalid"></div>
+          <div{{ errors_attributes }}>
+            {{ errors }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% elseif is_field_group or attributes.hasClass('list-fields') or attributes.hasClass('card-body') or attributes.hasClass('field-group-bootstrap_grid_col') %}
+  {#
+  For regular field groups, use the standard details structure
+  #}
   {%
     set classes = [
     'card',
@@ -108,7 +196,7 @@ If it's an accordion context, use Bootstrap 5 accordion structure
 
 {% else %}
   {#
-  Bootstrap 5 Accordion structure for non-field_group contexts
+  Bootstrap 5 Accordion structure for non-vertical-tabs contexts
   #}
   {% set accordion_id = 'accordion--' ~ random() %}
   {% set accordion_item_id = 'heading--' ~ accordion_id %}

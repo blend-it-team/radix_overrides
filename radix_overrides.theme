@@ -183,6 +183,32 @@ function radix_overrides_preprocess_select(&$variables) {
 
 }
 
+/**
+ * Implements hook_preprocess_details().
+ */
+function radix_overrides_preprocess_details(&$vars) {
+  // Set a variable to help distinguish vertical tabs from accordion
+  $vars['is_vertical_tabs'] = FALSE;
+
+  // Check if this is a vertical tabs context
+  // 1. Field groups with format_type: tabs
+  if (isset($vars['element']['#field_group']) &&
+    isset($vars['element']['#field_group']['format_type']) &&
+    $vars['element']['#field_group']['format_type'] === 'tabs') {
+    $vars['is_vertical_tabs'] = TRUE;
+  }
+
+  // 2. Elements with field-group-tab class
+  if (isset($vars['attributes']['class']) &&
+    in_array('field-group-tab', $vars['attributes']['class'])) {
+    $vars['is_vertical_tabs'] = TRUE;
+  }
+
+  // 3. Elements in #group "advanced" (Drupal core vertical tabs)
+  if (isset($vars['element']['#group']) && $vars['element']['#group'] === 'advanced') {
+    $vars['is_vertical_tabs'] = TRUE;
+  }
+}
 
 /**
  * Converts a link render element to an action link.
