@@ -122,43 +122,6 @@
 
           // Check background color contrast and adjust text color accordingly
           const listItems = $(tabList).find('> li');
-          const bgColor = window.getComputedStyle(tabList[0]).backgroundColor;
-          
-          // Function to check if background is dark using relative luminance
-          function isDarkBackground(bgColor) {
-            // Parse RGB values
-            const rgb = bgColor.match(/\d+/g);
-            if (!rgb || rgb.length < 3) return false;
-            
-            const r = parseInt(rgb[0]);
-            const g = parseInt(rgb[1]);
-            const b = parseInt(rgb[2]);
-            
-            // Calculate relative luminance (WCAG formula)
-            const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-            
-            // Return true if dark (luminance < 0.5)
-            return luminance < 0.5;
-          }
-          
-          // Function to update text colors based on background
-          function updateTextColors() {
-            // Always remove text-light and text-dark from selected items first
-            listItems.filter('.is-selected').removeClass('text-light text-dark');
-            
-            if (isDarkBackground(bgColor)) {
-              // Dark background: light text for non-selected
-              listItems.not('.is-selected').addClass('text-light').removeClass('text-dark');
-            } else {
-              // Light background: dark text for non-selected
-              listItems.not('.is-selected').addClass('text-dark').removeClass('text-light');
-            }
-          }
-          
-          // Update colors when selection changes (optional)
-          listItems.on('click', function() {
-            setTimeout(updateTextColors, 100); // Small delay to let classes update
-          });
 
           if (!tabFocus) {
             // If the current URL has a fragment and one of the tabs contains an
