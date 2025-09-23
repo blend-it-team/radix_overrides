@@ -136,31 +136,6 @@
           if (tabFocus.length) {
             tabFocus.data('verticalTab').focus();
           }
-          
-          // Apply color adjustment after focus is set (when .is-selected is applied)
-          setTimeout(() => {
-            updateTextColors();
-          }, 50);
-          
-          // Watch for changes to the .is-selected class using MutationObserver
-          const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-              if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                const target = $(mutation.target);
-                if (target.hasClass('is-selected')) {
-                  // Remove text-light from newly selected items
-                  target.removeClass('text-light text-dark');
-                }
-                // Update all colors when any class changes
-                updateTextColors();
-              }
-            });
-          });
-          
-          // Observe all list items for class changes
-          listItems.each(function() {
-            observer.observe(this, { attributes: true, attributeFilter: ['class'] });
-          });
         },
       );
 
