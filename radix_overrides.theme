@@ -87,17 +87,6 @@ function radix_overrides_page_attachments(array &$attachments) {
 }
 
 /**
- * Implements hook_library_info_alter().
- */
-function radix_overrides_library_info_alter(&$libraries, $extension) {
-  // Override the entity browser modal library to include our custom JavaScript
-  if ($extension === 'entity_browser' && isset($libraries['modal'])) {
-    $libraries['modal']['js']['/themes/shared/radix_overrides/assets/js/entity_browser.modal.js'] = [];
-    $libraries['modal']['js']['/themes/shared/radix_overrides/assets/js/entity_browser.modal_selection.js'] = [];
-  }
-}
-
-/**
  * Implements hook_form_FORM_ID_alter() for 'node_preview_form_select'.
  */
 function radix_overrides_form_node_preview_form_select_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
