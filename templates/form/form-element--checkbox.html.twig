@@ -44,5 +44,11 @@
  * @see template_preprocess_form_element()
  */
 #}
-{% include "radix_overrides:form-element--radiocheckbox" %}
+{% set attributes = attributes ?: create_attribute() %}
+{# If checkbox with label we can display a switch #}
+{% if label_display == "after" %}
+  {% do attributes.addClass('form-switch') %}
+{% endif %}
+
+{% include "radix:form-element--radiocheckbox" %}
 
