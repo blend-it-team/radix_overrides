@@ -74,7 +74,10 @@ libraries-override:
         css/components/system-status-report-general-info.css: false
         css/components/dialog.css: false
         css/components/resize.module.css: false
-
+  core/drupal.tablesort:
+    css:
+      component:
+        misc/components/tablesort.module.css: assets/css/component/tablesort.module.css
   clientside_validation_jquery/cv.jquery.ife: false
   views_data_export/views_data_export:
     css:
