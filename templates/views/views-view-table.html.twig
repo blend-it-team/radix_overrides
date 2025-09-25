@@ -32,4 +32,4 @@
  * @see template_preprocess_views_view_table()
  */
 #}
-{% include "radix:views-view--table" %}
+{% include "radix:views-view--table" with {bordered : false, attributes.addClass('table-striped')} %}
