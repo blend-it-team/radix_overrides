@@ -32,4 +32,7 @@
  * @see template_preprocess_views_view_table()
  */
 #}
-{% include "radix:views-view--table" with {bordered : false, attributes.addClass('table-striped')} %}
+{% set attributes = attributes ?: create_attribute() %}
+{# Set default table view classes #}
+{% do attributes.addClass('table-striped') %}
+{% include "radix:views-view--table" with {bordered : false} %}
