@@ -11,8 +11,9 @@
  */
 #}
 {% set attributes = attributes ?: create_attribute() %}
+{% do attributes.addClass('d-flex flex-wrap bg-body rounded p-3 justify-content-start gap-2 align-items-end') %}
 {%
   include "radix:form" with {
-    attributes: attributes.addClass('d-flex flex-grow-1 justify-content-start gap-2 align-items-end'),
-  }
+  attributes: attributes
+}
 %}
