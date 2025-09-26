@@ -32,7 +32,7 @@ tr.draggable a.tabledrag-handle .handle {
   width: 1em;
   height: 1em;
   display: inline-block;
-  vertical-align: middle;
+  vertical-align: text-top;
   color: green;
   background-image: none;
   background-color: var(--bs-emphasis-color);
@@ -45,6 +45,8 @@ tr.draggable a.tabledrag-handle .handle {
   transform: scale(1);
   transition: opacity 0.1s ease-in-out 0s;
   opacity: 0.5;
+  margin: 0 1em 0 1em;
+  padding: 0;
 }
 
 tr.draggable a.tabledrag-handle .handle:hover,
