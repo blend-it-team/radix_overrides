@@ -39,9 +39,10 @@
  * @see template_preprocess_table()
  */
 #}
-{% include 'radix:table'  with {
-  table_utility_classes : [
-    'table-hover',
-    'table-striped',
-  ]
-} %}
+<div class="bg-body rounded p-3">
+  {% include 'radix:table'  with {
+    table_utility_classes : [
+      'table-hover'
+    ]
+  } %}
+</div>
