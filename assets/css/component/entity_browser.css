@@ -1,0 +1,60 @@
+.entities-list:not(.entities-list--single-item) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-gap: 1rem;
+  margin-block-end: 1rem;
+}
+
+.entities-list.entities-list--single-item .item-container {
+  max-width: 180px;
+}
+
+.entities-list .item-container {
+  position: relative;
+  border-radius: var(--bs-border-radius);
+  box-shadow: var(--bs-box-shadow);
+}
+
+.entities-list .item-container > .edit-button,
+.entities-list .item-container > .remove-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.95);
+  color: transparent !important;
+  overflow: hidden;
+}
+
+.entities-list .item-container > .remove-button {
+  right: 2.8rem;
+}
+
+.entities-list .item-container > .edit-button::after,
+.entities-list .item-container > .remove-button::after {
+  content: "";
+  position: absolute;
+  display: block;
+  background-image: url('../../icons/trash3-fill.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 1rem;
+  height: 1rem;
+}
+
+.entities-list .item-container > .edit-button::after {
+  background-image: url('../../icons/pencil-fill.svg');
+}
+
+.entities-list .item-container .field--name-thumbnail img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 350 / 200;
+  border-radius: var(--bs-border-radius);
+}

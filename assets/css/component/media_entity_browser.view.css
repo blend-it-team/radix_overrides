@@ -11,13 +11,13 @@
     position: relative;
     display: inline-flex;
     flex-direction: column;
-    padding: 5px;
+    padding: var(--bs-card-padding-x) var(--bs-card-padding-y);
     margin: 7.5px;
     width: calc(33.3% - 15px);
     overflow: hidden;
     border: 2px solid transparent;
-    border-radius: 5px;
-    box-shadow: 0 1px 6px 0 rgba(0,34,51,.1), 0 0 0 1px rgba(0,34,51,.1);
+    border-radius: var(--bs-border-radius);
+    box-shadow: var(--bs-box-shadow);
 
     @media (max-width: 767px) {
       width: calc(100% - 15px);
@@ -29,8 +29,7 @@
       height: auto;
       object-fit: cover;
       aspect-ratio: 350 / 200;
-      background-color: #f0f0f0;
-      border-radius: 5px;
+      border-radius: var(--bs-border-radius);
     }
   }
 
@@ -50,11 +49,11 @@
     background-size: 30px;
     background-color: #f0f0f0;
     background-image: url('../../../assets/icons/check2.svg');
-    box-shadow: 0 1px 6px 0 rgba(0,34,51,.1), 0 0 0 1px rgba(0,34,51,.1);
+    box-shadow: var(--bs-box-shadow);
   }
 
   .views-row.checked {
-    border-radius: 5px;
+    border-radius: var(--bs-border-radius);
   }
 
   .views-row.checked:after,

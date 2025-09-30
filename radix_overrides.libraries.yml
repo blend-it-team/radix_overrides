@@ -142,6 +142,9 @@ media_entity_browser.view:
 
 entity_browser_fix:
   version: VERSION
+  css:
+    theme:
+      assets/css/component/entity_browser.css: {}
   js:
     assets/js/entity_browser_fix.js: {}
   dependencies:
