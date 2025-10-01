@@ -152,7 +152,15 @@ entity_browser_fix:
     - core/drupalSettings
     - core/drupal.ajax
 
-
+media_library.grid:
+  version: VERSION
+  js:
+      assets/js/media_library.grid.js: {}
+  dependencies:
+      - core/jquery
+      - core/drupal
+      - core/drupal.ajax
+      - core/drupal.form
 
 filter:
   version: VERSION

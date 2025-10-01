@@ -12,6 +12,7 @@ use Drupal\Core\Render\Markup;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\radix_overrides\RadixOverridesPreRender;
+use Drupal\views\Form\ViewsForm;
 
 function _radix_overrides_button_text_to_class($button_text) {
   $button_mapping_styles = [
@@ -49,6 +50,7 @@ function radix_overrides_preprocess_page(&$variables) {
 * Implements hook_form_alter().
 */
 function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form_object = $form_state->getFormObject();
 
   if (isset($form['actions'])) {
     $form['actions']['#attributes']['class'][] = 'hstack';
@@ -75,6 +77,15 @@ function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $for
   // Attach the custom entity browser modal selection library for entity browser forms
   if (strpos($form_id, 'entity_browser_') === 0) {
     // Libraries are already loaded globally via hook_page_attachments()
+  }
+
+  if ($form_object instanceof ViewsForm && str_starts_with($form_object->getBaseFormId(), 'views_form_media_library')) {
+    if (isset($form['header'])) {
+      $form['header']['#attributes']['class'][] = 'media-library-views-form__header';
+      $form['header']['media_bulk_form']['#attributes']['class'][] = 'media-library-views-form__bulk_form';
+    }
+    $form['actions']['submit']['#attributes']['class'] = ['media-library-select'];
+    $form['#attributes']['class'][] = 'media-library-views-form';
   }
 }
 
@@ -339,5 +350,13 @@ function radix_overrides_element_info_alter(&$info): void {
 
   if (isset($info['status_messages'])) {
     $info['status_messages']['#pre_render'][] = [RadixOverridesPreRender::class, 'messagePlaceholder'];
+  }
+}
+
+// Load library radix_overrides/media_library.grid in view "media_library" and
+// display "media-grid".
+function radix_overrides_preprocess_views_view(array &$vars) {
+  if ($vars['view']->id() === 'media_library' && $vars['view']->current_display === 'page') {
+    $vars['#attached']['library'][] = 'radix_overrides/media_library.grid';
   }
 }

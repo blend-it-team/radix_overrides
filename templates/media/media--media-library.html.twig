@@ -43,7 +43,8 @@
   'media-library-item__preview-wrapper',
   'card',
   'h-100',
-  'mb-4'
+  'mb-4',
+  (status) ? 'opacity-100' : 'opacity-50'
 ] %}
 
 {% set preview_attributes_classes = [
@@ -62,9 +63,6 @@
     <div{{ preview_attributes.addClass(preview_attributes_classes) }}>
       {{ content|without('name') }}
     </div>
-    {% if not status %}
-      <div class="media-library-item__status">{{ "unpublished"|t }}</div>
-    {% endif %}
     <div{{ metadata_attributes.addClass(metadata_attributes_classes) }}>
       <div class="media-library-item__name text-truncate">
         {{ name }}
