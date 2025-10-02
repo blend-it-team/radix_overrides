@@ -88,7 +88,7 @@
           $details.unwrap();
 
           // Create the tab column.
-          const tabList = $('<ul class="vertical-tabs__menu list-group list-group-flush col-4 p-0 rounded-start bg-primary bg-opacity-10"></ul>');
+          const tabList = $('<ul class="vertical-tabs__menu list-group list-group-flush col-4 p-0 rounded-start bg-body-tertiary"></ul>');
           $this
             .wrap('<div class="container-fluid"></div>')
             .wrap('<div class="vertical-tabs row"></div>')
