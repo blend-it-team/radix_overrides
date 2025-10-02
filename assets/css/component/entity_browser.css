@@ -52,6 +52,7 @@
   color: transparent !important;
   overflow: hidden;
   z-index: 9;
+  padding: 0;
 }
 
 .media-library-views-form__grid a[href^="/media/"][href*="/delete"],
