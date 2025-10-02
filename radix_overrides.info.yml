@@ -127,6 +127,8 @@ libraries-extend:
     - radix_overrides/drupal.progress
   core/drupal.tabledrag:
     - radix_overrides/drupal.tabledrag
+  core/drupal.tableselect:
+    - radix_overrides/drupal.tableselect
   core/ckeditor5:
     - radix_overrides/ckeditor5
   filter/drupal.filter:

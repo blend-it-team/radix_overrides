@@ -71,6 +71,17 @@ drupal.tabledrag:
     - core/drupalSettings
     - core/once
 
+drupal.tableselect:
+  js:
+    assets/js/tableselect.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.announce
+    - core/drupal.debounce
+    - core/tabbable
+    - core/once
+
 drupal.text:
   js:
     assets/js/text.js: {}
