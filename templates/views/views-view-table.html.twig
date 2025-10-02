@@ -32,7 +32,6 @@
  * @see template_preprocess_views_view_table()
  */
 #}
-{% set attributes = attributes ?: create_attribute() %}
-{# Set default table view classes #}
-{% do attributes.addClass('table-striped') %}
-{% include "radix:views-view--table" with {bordered : false} %}
+<div class="bg-body rounded my-3 p-3 pb-4">
+{% include "radix:views-view--table" with {bordered : false, table_utility_classes : ['table-hover']} %}
+</div>
