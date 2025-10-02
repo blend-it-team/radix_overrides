@@ -21,7 +21,9 @@ class SubThemeCommands extends DrushCommands {
    *
    * @command radix:create
    * @aliases radix
-   * @param string $name The machine-readable name of your sub-theme.
+   * @param string $name
+   *   The machine-readable name of your sub-theme.
+   *
    * @bootstrap full
    *
    * @usage drush radix:create 'My Theme'
@@ -70,7 +72,8 @@ class SubThemeCommands extends DrushCommands {
       $this->printHeading("✅ STEP 7");
       $this->logger()->notice("Run the following command to compile Sass, JS and watch for other changes:");
       $this->printCommand('npm run watch');
-    } catch (\Exception $exception) {
+    }
+    catch (\Exception $exception) {
       $this->logger()->error($exception->getMessage());
     }
   }
@@ -109,20 +112,20 @@ class SubThemeCommands extends DrushCommands {
     $destination = $drupalRoot . '/themes/custom/radix_starterkit';
     $filesystem->mirror($source, $destination);
 
-    // Removes files handled by parent theme
+    // Removes files handled by parent theme.
     $filesystem->remove($drupalRoot . '/themes/custom/radix_starterkit/templates/');
     $filesystem->remove($drupalRoot . '/themes/custom/radix_starterkit/src/js/overrides');
     $filesystem->remove($drupalRoot . '/themes/custom/radix_starterkit/includes');
     $filesystem->remove($drupalRoot . '/themes/custom/radix_starterkit/radix_starterkit.theme');
 
-    // add override files
-    $filesystem->mirror($overrides_sources, $destination, null, ['override' => TRUE]);
-
+    // Add override files.
+    $filesystem->mirror($overrides_sources, $destination, NULL, ['override' => TRUE]);
 
   }
 
   /**
    * Temporary function to copy the dot files.
+   *
    * @see: https://www.drupal.org/project/drupal/issues/3456699
    */
   private function copyDotFiles(string $themeName) {
@@ -130,7 +133,7 @@ class SubThemeCommands extends DrushCommands {
     $drupalRoot = Drush::bootstrapManager()->getRoot();
     $source = $drupalRoot . '/themes/contrib/radix/src/kits/radix_starterkit';
     $destination = $drupalRoot . '/themes/custom/' . $themeName;
-  
+
     $dotFiles = ['.gitignore', '.nvmrc', '.env.example', '.browserslistrc', '.stylelintrc.json', '.npmrc', '.stylelintignore', '.gitkeep'];
     foreach ($dotFiles as $file) {
       if (file_exists("$source/$file")) {
@@ -187,4 +190,5 @@ class SubThemeCommands extends DrushCommands {
   private function isValidName(string $name): bool {
     return !empty($name);
   }
+
 }

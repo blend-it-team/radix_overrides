@@ -14,6 +14,15 @@ use Drupal\Core\Url;
 use Drupal\radix_overrides\RadixOverridesPreRender;
 use Drupal\views\Form\ViewsForm;
 
+/**
+ * Maps button text to Bootstrap style classes.
+ *
+ * @param string $button_text
+ *   The button text to evaluate.
+ *
+ * @return string
+ *   The corresponding Bootstrap style class.
+ */
 function _radix_overrides_button_text_to_class($button_text) {
   $button_mapping_styles = [
     'delete' => 'danger',
@@ -47,8 +56,8 @@ function radix_overrides_preprocess_page(&$variables) {
 }
 
 /**
-* Implements hook_form_alter().
-*/
+ * Implements hook_form_alter().
+ */
 function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $form_object = $form_state->getFormObject();
 
@@ -57,13 +66,14 @@ function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $for
     $form['actions']['#attributes']['class'][] = 'gap-2';
     $form['actions']['#attributes']['class'][] = 'mb-3';
     $form['actions']['#attributes']['class'][] = 'align-items-end';
-    foreach ($form['actions'] as $key => &$action) {
+    foreach ($form['actions'] as &$action) {
       if (isset($action['#type']) && $action['#type'] == 'link') {
         $attributes = &$action['#attributes'];
 
         if ($action['#title'] instanceof TranslatableMarkup) {
           $button_text = $action['#title']->getUntranslatedString();
-        } else {
+        }
+        else {
           $button_text = $action['#title'];
         }
 
@@ -74,7 +84,8 @@ function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $for
     }
   }
 
-  // Attach the custom entity browser modal selection library for entity browser forms
+  // Attach the custom entity browser modal selection library
+  // for entity browser forms.
   if (strpos($form_id, 'entity_browser_') === 0) {
     // Libraries are already loaded globally via hook_page_attachments()
   }
@@ -108,7 +119,8 @@ function radix_overrides_form_node_preview_form_select_alter(array &$form, FormS
 
   if (isset($form['#attributes']['class'])) {
     $form['#attributes']['class'] = array_merge($form_class, $form['#attributes']['class']);
-  } else {
+  }
+  else {
     $form['#attributes']['class'] = $form_class;
   }
 
@@ -130,7 +142,8 @@ function radix_overrides_preprocess_input(&$variables) {
 
     if (isset($input['#value']) && $input['#value'] instanceof TranslatableMarkup) {
       $button_text = $input['#value']->getUntranslatedString();
-    } else {
+    }
+    else {
       $button_text = $input['#value'] ?? '';
     }
 
@@ -148,7 +161,8 @@ function radix_overrides_preprocess_input(&$variables) {
 
     if ($primary) {
       $style_class = 'btn-';
-    } else  {
+    }
+    else {
       $style_class = 'btn-outline-';
     }
 
@@ -179,11 +193,11 @@ function radix_overrides_preprocess_select(&$variables) {
  * Implements hook_preprocess_details().
  */
 function radix_overrides_preprocess_details(&$vars) {
-  // Set a variable to help distinguish vertical tabs from accordion
+  // Set a variable to help distinguish vertical tabs from accordion.
   $vars['is_vertical_tabs'] = FALSE;
 
   // Check if this is a vertical tabs context
-  // 1. Field groups with format_type: tabs
+  // 1. Field groups with format_type: tabs.
   if (isset($vars['element']['#field_group']) &&
     isset($vars['element']['#field_group']['format_type']) &&
     $vars['element']['#field_group']['format_type'] === 'tabs') {
@@ -243,7 +257,6 @@ function _radix_convert_link_to_action_link(array $link, $classes) {
   $link['#options'] += ['attributes' => []];
   $link['#options']['attributes'] += ['class' => []];
 
-
   // Remove button, button modifier CSS classes and other unwanted ones.
   $link['#options']['attributes']['class'] = array_diff($link['#options']['attributes']['class'], [
     'button',
@@ -255,7 +268,7 @@ function _radix_convert_link_to_action_link(array $link, $classes) {
     'link',
   ]);
 
-  // merge class with sent classes
+  // Merge class with sent classes.
   $link['#options']['attributes']['class'] = array_merge($link['#options']['attributes']['class'], $classes);
 
   // If the provided $link is an item of the 'links' theme function, then only
@@ -350,13 +363,5 @@ function radix_overrides_element_info_alter(&$info): void {
 
   if (isset($info['status_messages'])) {
     $info['status_messages']['#pre_render'][] = [RadixOverridesPreRender::class, 'messagePlaceholder'];
-  }
-}
-
-// Load library radix_overrides/media_library.grid in view "media_library" and
-// display "media-grid".
-function radix_overrides_preprocess_views_view(array &$vars) {
-  if ($vars['view']->id() === 'media_library' && $vars['view']->current_display === 'page') {
-    $vars['#attached']['library'][] = 'radix_overrides/media_library.grid';
   }
 }

@@ -5,20 +5,18 @@
   --layout-header-background: var(--bs-body-bg);
 }
 
-main.layout-main{
+main.layout-main {
   grid-template-columns: auto minmax(0, 1fr);
-  grid-template-areas:
-    "header header-expanded"
-    "main-content main-content";
+  grid-template-areas: "header header-expanded"
+  "main-content main-content";
 }
 
 main.layout-main:has(.layout-sidebar) {
   min-height: 100vh;
   grid-template-columns: var(--layout-sidebar-width) minmax(0, 1fr);
   grid-template-rows: auto 1fr;
-  grid-template-areas:
-    "header header-expanded"
-    "sidebar main-content";
+  grid-template-areas: "header header-expanded"
+  "sidebar main-content";
 }
 
 .layout-header,
@@ -42,8 +40,7 @@ main.layout-main:has(.layout-sidebar) {
 
 
 aside.layout-sidebar {
-  grid-area: sidebar;
-  & .sidebar-footer {
+  grid-area: sidebar;   & .sidebar-footer {
     margin-top: auto;
   }
 }

@@ -52,7 +52,6 @@ tr.draggable a.tabledrag-handle .handle {
 tr.draggable a.tabledrag-handle .handle:hover,
 tr.draggable a.tabledrag-handle .handle:focus {
   opacity: 1;
-
 }
 
 tr.draggable a.tabledrag-handle.tabledrag-handle-y {
@@ -62,7 +61,7 @@ tr.draggable.drag {
   opacity: 0.5;
 }
 tr.draggable.drag,
-tr.draggable.drag a.tabledrag-handle.tabledrag-handle-y{
+tr.draggable.drag a.tabledrag-handle.tabledrag-handle-y {
   cursor: grabbing;
 }
 

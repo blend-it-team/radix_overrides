@@ -133,6 +133,10 @@ libraries-extend:
     - radix_overrides/filter
   media_entity_browser/view:
     - radix_overrides/media_entity_browser.view
+  media_library/view:
+    - radix_overrides/media_library.grid
+  media_library/widget:
+    - radix_overrides/media_library.grid
   entity_browser/modal:
     - radix_overrides/entity_browser_fix
   tagify/default:

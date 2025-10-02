@@ -1,13 +1,13 @@
-.local-tasks-nav.tabs-box{
-  position: relative;
-
-  & .nav-link, .nav-link:hover {
+.local-tasks-nav.tabs-box {
+  position: relative;   & .nav-link,
+  .nav-link: hover {
     border-radius: var(--bs-border-radius) !important;
     color: var(--bs-body-color);
   }
 }
 .local-tasks-nav.active-state {
-  & .nav-link:hover, .nav-link.active {
+  & .nav-link: hover,
+  .nav-link.active {
     background-color: var(--bs-body-bg, #fff);
   }
   & .nav-link.active {

@@ -1,4 +1,4 @@
-:root{
+:root {
   --tagify-dd-bg-color: var(--bs-body-bg);
   --tagify-dd-color-primary: var(--bs-tertiary-bg);
   --tagify-dd-text-color: var(--bs-body-color);
@@ -7,13 +7,11 @@
 .tagify.form-control {
   display: inline-flex;
   padding: 0;
-
 }
 
 /* Required validation in hidden select */
-.form-type-select-tagify{
-  position: relative;
-  & select.tagify-select-widget {
+.form-type-select-tagify {
+  position: relative;   & select.tagify-select-widget {
     position: absolute !important;
     z-index: 0;
     bottom: 0;
@@ -49,34 +47,33 @@
   --tag-remove-btn-bg--hover: var(--bs-danger);
   --input-color: inherit;
   --placeholder-color: var(--bs-secondary-color);
-  --placeholder-color-focus:  var(--bs-secondary-color);
+  --placeholder-color-focus: var(--bs-secondary-color);
   --loader-size: .8rem;
   --tagify-dd-item--hidden-duration: 0.3s;
   line-height: inherit;
 }
-.tagify.tagify--focus{
+.tagify.tagify--focus {
   border-color: var(--bs-focus-ring-color);
   box-shadow: 0 0 0 var(--bs-focus-ring-width) var( --bs-focus-ring-color);
 }
 
-.tagify__tag{
+.tagify__tag {
   line-height: inherit;
-  margin-inline:5px;
+  margin-inline: 5px;
   margin-block: 5px;
 }
-.tagify__tag__removeBtn{
+.tagify__tag__removeBtn {
   font-size: 1.2rem;
   margin: auto 0.75rem auto 0;
 }
 .tagify__tag__removeBtn:hover {
   background: transparent;
   color: var(--bs-danger);
-
 }
-.tagify__tag>div::before{
+.tagify__tag>div::before {
   border: var(--tag-border);
 }
-.tagify__dropdown__wrapper{
+.tagify__dropdown__wrapper {
   background-color: var(--bs-body-bg);
   color: var(--bs-body-color);
   border-radius: var(--bs-border-radius);
@@ -84,7 +81,6 @@
   border-top: 0 solid transparent;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-
 }
 .tagify__dropdown__item--active {
   color: inherit;

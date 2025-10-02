@@ -16,8 +16,7 @@ class RadixOverridesPreRender implements TrustedCallbackInterface {
    */
   public static function textFormat($element) {
 
-
-    // Move format in first place
+    // Move format in first place.
     $element['format']['format']['#weight'] = -10;
     $element['format']['format']['#wrapper_attributes']['class'][] = 'form-floating';
     $element['format']['format']['#wrapper_attributes']['class'][] = 'mb-1';
@@ -25,7 +24,6 @@ class RadixOverridesPreRender implements TrustedCallbackInterface {
     $element['format']['format']['#title_display'] = 'after';
 
     $element['format']['guidelines']['#weight'] = -9;
-    //$element['format']['guidelines']['#attributes']['class'][] = 'alert alert-light mb-0 pb-O';
 
     $element['format']['help']['#attributes']['class'][] = 'text-end';
     return $element;
@@ -47,7 +45,6 @@ class RadixOverridesPreRender implements TrustedCallbackInterface {
     return $element;
   }
 
-
   /**
    * {@inheritdoc}
    */
@@ -57,4 +54,5 @@ class RadixOverridesPreRender implements TrustedCallbackInterface {
       'messagePlaceholder',
     ];
   }
+
 }

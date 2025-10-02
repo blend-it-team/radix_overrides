@@ -27,10 +27,7 @@
 }
 
 /* Bootstrap 5.3 bug workaround. */
-body
-  .form-floating
-  > .form-control:not(:-moz-placeholder-shown)
-  ~ label::after {
+body .form-floating > .form-control:not(:-moz-placeholder-shown) ~ label::after {
   position: unset;
   background-color: unset;
 }

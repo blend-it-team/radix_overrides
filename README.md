@@ -39,9 +39,3 @@ To create a child theme :
 Using drush:
 
     drush --include="web/themes/shared/radix_overrides" radix:create SUBTHEME_NAME
-
-
-
-
-
-

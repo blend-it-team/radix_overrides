@@ -1,5 +1,5 @@
 .view-media-entity-browser {
-    padding-bottom: 70px;
+  padding-bottom: 70px;
 
   .view-content {
     display: flex;
@@ -23,7 +23,7 @@
       width: calc(100% - 15px);
     }
 
-    img {
+    & img {
       display: block;
       width: 100%;
       height: auto;
@@ -33,7 +33,7 @@
     }
   }
 
-  .views-row:after{
+  .views-row:after {
     display: none;
     content: " ";
     position: absolute;
@@ -48,7 +48,7 @@
     pointer-events: none;
     background-size: 30px;
     background-color: #f0f0f0;
-    background-image: url('../../../assets/icons/check2.svg');
+    background-image: url("../../../assets/icons/check2.svg");
     box-shadow: var(--bs-box-shadow);
   }
 
@@ -70,7 +70,7 @@
 
   .views-row.checked:after {
     background-color: var(--bs-secondary);
-    background-image: url('../../../assets/icons/check2-white.svg');
+    background-image: url("../../../assets/icons/check2-white.svg");
   }
 
   .views-field-name {
@@ -85,10 +85,10 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     background-color: white;
-    color: rgba(0,34,51,.8);
+    color: rgba(0, 34, 51, 0.8);
 
     [class^="media-info--"] {
-      display: none
+      display: none;
     }
   }
 
@@ -98,7 +98,6 @@
     width: 100%;
     overflow: hidden;
   }
-
 }
 
 .view-media-entity-browser ~ .form-actions {
@@ -113,12 +112,9 @@
   backdrop-filter: blur(5px);
   z-index: 9;
   margin: 0 !important;
-
   transition: transform 0.3s ease;
 
   &.elements-selected {
     transform: translateY(0);
-
-
   }
 }
