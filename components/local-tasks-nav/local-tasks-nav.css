@@ -1,25 +1,26 @@
-.local-tasks-nav.tabs-box {
-  position: relative;   & .nav-link,
-  .nav-link: hover {
+.local-tasks-nav.tabs-box{
+  position: relative;
+
+  .nav-link,
+  .nav-link:hover {
     border-radius: var(--bs-border-radius) !important;
     color: var(--bs-body-color);
   }
 }
 .local-tasks-nav.active-state {
-  & .nav-link: hover,
-  .nav-link.active {
+  .nav-link:hover, .nav-link.active {
     background-color: var(--bs-body-bg, #fff);
   }
-  & .nav-link.active {
+  .nav-link.active {
     box-shadow: var(--bs-box-shadow-sm)!important;
   }
 }
 
 .local-tasks-nav.hover-opacity {
-  & .nav-link {
+  .nav-link {
     opacity: 0.5;
   }
-  & .nav-link:hover,
+  .nav-link:hover,
   .nav-link.active {
     opacity: 1;
   }

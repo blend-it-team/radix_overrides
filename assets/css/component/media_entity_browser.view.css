@@ -23,7 +23,7 @@
       width: calc(100% - 15px);
     }
 
-    & img {
+    img {
       display: block;
       width: 100%;
       height: auto;
