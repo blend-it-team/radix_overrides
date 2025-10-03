@@ -12,13 +12,11 @@ dependencies:
   - drupal:serialization
 
 regions:
-  navbar_branding: Navbar branding
-  navbar_left: Navbar left
-  navbar_right: Navbar right
-  header: Header
-  content: Content
-  page_bottom: Page bottom
-  footer: Footer
+  header: 'Header'
+  header_expanded: 'Header expanded'
+  sidebar: 'Sidebar'
+  sidebar_footer: 'Sidebar footer'
+  content: 'Content'
 
 libraries:
   - radix_starterkit/style
