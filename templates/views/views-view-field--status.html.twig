@@ -20,7 +20,7 @@
  * @ingroup themeable
  */
 #}
-{% if row._entity.isPublished() %}
+{% if row._entity.isPublished() or row._entity.isActive() %}
   <span class="badge bg-success-subtle text-success-emphasis rounded-pill">{{ output -}}</span>
 {% else %}
   <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill">{{ output -}}</span>
