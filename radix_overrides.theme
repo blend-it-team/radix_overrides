@@ -63,10 +63,21 @@ function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $for
   $form_object = $form_state->getFormObject();
 
   if (isset($form['actions'])) {
-    $form['actions']['#attributes']['class'][] = 'hstack';
-    $form['actions']['#attributes']['class'][] = 'gap-2';
-    $form['actions']['#attributes']['class'][] = 'mb-3';
-    $form['actions']['#attributes']['class'][] = 'align-items-end';
+    if (!isset($form['actions']['#attributes'])) {
+      $form['actions']['#attributes']['class'] = [];
+    }
+
+    $actions_classes = [
+      'sticky-bottom',
+      'hstack',
+      'gap-2',
+      'p-3',
+      'justify-content-end',
+      'bg-body',
+      'bg-opacity-75',
+    ];
+    array_push($form['actions']['#attributes']['class'], ...$actions_classes);
+
     foreach ($form['actions'] as &$action) {
       if (isset($action['#type']) && $action['#type'] == 'link') {
         $attributes = &$action['#attributes'];
