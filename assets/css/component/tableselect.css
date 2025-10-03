@@ -1,0 +1,19 @@
+.views-bulk-actions[data-drupal-sticky-vbo="true"] {
+  position: sticky;
+  animation: fade-in-bottom 320ms 1 forwards;
+}
+
+.views-bulk-actions {
+
+  bottom: var(--drupal-displace-offset-bottom, 0);
+
+}
+
+@keyframes fade-in-bottom {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

@@ -74,6 +74,9 @@ drupal.tabledrag:
 drupal.tableselect:
   js:
     assets/js/tableselect.js: {}
+  css:
+    component:
+      assets/css/component/tableselect.css: { }
   dependencies:
     - core/jquery
     - core/drupal

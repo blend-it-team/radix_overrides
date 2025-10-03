@@ -118,7 +118,7 @@ function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $for
         unset($form['actions']);
         $form['bulk_actions_container']['#attributes']['data-drupal-views-bulk-actions'] = '';
         $form['bulk_actions_container']['#attributes']['class'][] = 'views-bulk-actions';
-        $form['bulk_actions_container']['#attributes']['class'][] = 'd-flex gap-2 rounded bg-body bg-opacity-75 pt-3 px-3 sticky-bottom';
+        $form['bulk_actions_container']['#attributes']['class'][] = 'd-flex gap-2 rounded bg-body bg-opacity-75 pt-3 px-3';
         $form['bulk_actions_container']['actions']['submit']['#button_type'] = 'primary';
         $label = t('Perform actions on the selected items in the %view_title view', ['%view_title' => $view_title]);
         $label_id = $key . '_group_label';
@@ -207,7 +207,6 @@ function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $for
         $form['bulk_actions_container']['#attributes']['data-drupal-views-bulk-actions'] = '';
         $form['bulk_actions_container']['#attributes']['class'][] = 'views-bulk-actions';
         $form['bulk_actions_container']['actions']['submit']['#button_type'] = 'primary';
-        $form['bulk_actions_container']['actions']['submit']['#attributes']['class'][] = 'button--small';
         $label = t('Perform actions on the selected items in the %view_title view', ['%view_title' => $view_title]);
         $label_id = $key . '_group_label';
 
