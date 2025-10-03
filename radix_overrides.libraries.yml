@@ -84,7 +84,11 @@ drupal.tableselect:
     - core/drupal.debounce
     - core/tabbable
     - core/once
-
+drupal.node.preview:
+  version: VERSION
+  css:
+    theme:
+      assets/css/component/node-preview.css: {}
 drupal.text:
   js:
     assets/js/text.js: {}

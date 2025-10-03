@@ -123,6 +123,8 @@ libraries-extend:
     - radix_overrides/drupal.dialog.off_canvas
   core/drupal.message:
     - radix_overrides/drupal.message
+  node/drupal.node.preview:
+    - radix_overrides/drupal.node.preview
   core/drupal.progress:
     - radix_overrides/drupal.progress
   core/drupal.tabledrag:
