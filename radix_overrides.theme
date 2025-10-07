@@ -63,7 +63,7 @@ function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $for
   $form_object = $form_state->getFormObject();
 
   if (isset($form['actions'])) {
-    if (!isset($form['actions']['#attributes'])) {
+    if (!isset($form['actions']['#attributes']['class'])) {
       $form['actions']['#attributes']['class'] = [];
     }
 
