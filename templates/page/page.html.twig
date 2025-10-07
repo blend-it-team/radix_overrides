@@ -42,60 +42,7 @@
  * @see html.html.twig
  */
 #}
-{% set page_attributes = attributes ?: create_attribute() %}
-{% set
-  page_classes = [
-  'page',
-]|merge(page_utility_classes ?: [])
-%}
+{% embed 'radix_overrides:page-lazy-layout' %}
 
-<div {{ page_attributes.addClass(page_classes) }}>
-  {% block page_navigation %}
-    {% apply spaceless %}
 
-      {%
-        embed 'radix:navbar' with {
-        container: 'fluid',
-        navbar_theme: 'dark',
-        navbar_utility_classes: [
-          'justify-content-between',
-        ],
-      }
-      %}
-        {% block branding %}
-          {% if page.navbar_branding %}
-            {{ page.navbar_branding }}
-          {% endif %}
-        {% endblock %}
-
-        {% block left %}
-          {% if page.navbar_left %}
-            <div class="me-auto">
-              {{ page.navbar_left }}
-            </div>
-          {% endif %}
-        {% endblock %}
-
-        {% block right %}
-          {% if page.navbar_right %}
-            <div class="ms-auto">
-              {{ page.navbar_right }}
-            </div>
-          {% endif %}
-        {% endblock %}
-      {% endembed %}
-
-    {% endapply %}
-  {% endblock %}
-
-  {% block page_content %}
-    {% include 'radix:page-content' with {
-      page_main_utility_classes: ['py-5'],
-      page_header_container_utility_classes: ['mb-3'],
-    }%}
-  {% endblock %}
-
-  {% block page_footer %}
-    {% include 'radix:page-footer' %}
-  {% endblock %}
-</div>
+{% endembed %}
