@@ -74,6 +74,7 @@ function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $for
       'p-3',
       'justify-content-end',
       'bg-body',
+      'rounded',
       'bg-opacity-75',
     ];
     array_push($form['actions']['#attributes']['class'], ...$actions_classes);
