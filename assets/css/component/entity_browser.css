@@ -92,7 +92,7 @@
 }
 
 .media-library-views-form__grid .views-row img,
-.entities-list .item-container .field--name-thumbnail img {
+.entities-list .item-container .field img {
   width: 100%;
   height: auto;
   object-fit: cover;
