@@ -67,16 +67,25 @@ function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $for
       $form['actions']['#attributes']['class'] = [];
     }
 
+    $view = $form_state->get('view');
+
     $actions_classes = [
-      'sticky-bottom',
+      'align-items-end',
       'hstack',
       'gap-2',
-      'p-3',
       'justify-content-end',
-      'bg-body',
-      'rounded',
-      'bg-opacity-75',
     ];
+    // If view filter form add margin top and remove margin bottom.
+    if (!empty($view)) {
+      $actions_classes[] = 'mb-3';
+    }
+    else {
+      $actions_classes[] = 'bg-body';
+      $actions_classes[] = 'sticky-bottom';
+      $actions_classes[] = 'p-3';
+      $actions_classes[] = 'rounded';
+      $actions_classes[] = 'bg-opacity-75';
+    }
     array_push($form['actions']['#attributes']['class'], ...$actions_classes);
 
     foreach ($form['actions'] as &$action) {
