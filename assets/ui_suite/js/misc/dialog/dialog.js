@@ -228,8 +228,17 @@
       }
 
       if ($element.modal !== undefined) {
-        $element.modal(settings);
-        $element.modal('show');
+        try {
+          $element.modal(settings);
+          $element.modal('show');
+        } catch (error) {
+          console.warn('Dialog modal error:', error);
+          // Fallback: manually show the modal
+          $element.addClass('show');
+          $element.css('display', 'block');
+          $element.attr('aria-modal', 'true');
+          $element.attr('aria-hidden', 'false');
+        }
         // Be sure modal is last, it will be on top of all other modals and
         // backdrops.
         // Thanks to that, no more need different z-index for modals and
@@ -239,7 +248,9 @@
 
       if (settings.width) {
         const $dialog = $('.modal-dialog', $element);
-        $dialog[0].style.maxWidth = settings.width;
+        if ($dialog[0]) {
+          $dialog[0].style.maxWidth = settings.width;
+        }
       }
 
       domElement.dispatchEvent(
@@ -252,7 +263,16 @@
       // eslint-disable-next-line no-undef
       domElement.dispatchEvent(new DrupalDialogEvent('beforeclose', dialog));
       if ($element.modal !== undefined) {
-        $element.modal('hide');
+        try {
+          $element.modal('hide');
+        } catch (error) {
+          console.warn('Dialog modal hide error:', error);
+          // Fallback: manually hide the modal
+          $element.removeClass('show');
+          $element.css('display', 'none');
+          $element.attr('aria-modal', 'false');
+          $element.attr('aria-hidden', 'true');
+        }
       }
       dialog.returnValue = value;
       dialog.open = false;
@@ -287,3 +307,160 @@
     return dialog;
   };
 })(jQuery, Drupal, drupalSettings);
+
+// Override core dialog positioning to prevent errors with Bootstrap modals
+(function($, Drupal) {
+  'use strict';
+  
+  // Override the dialog:aftercreate event listener to prevent positioning errors
+  $(document).off('dialog:aftercreate');
+  $(document).on('dialog:aftercreate', function(event) {
+    const $element = $(event.target);
+    const settings = event.settings || {};
+    
+    
+    // Check if this is a Bootstrap modal dialog or Media Library modal
+    const isBootstrapModal = $element.hasClass('modal') || $element.find('.modal').length > 0;
+    const isMediaLibrary = $element.find('.media-library-widget-modal').length > 0 || $element.hasClass('media-library-widget-modal');
+    
+    if (isBootstrapModal || isMediaLibrary) {
+      // Prevent core dialog positioning from running on Bootstrap modals
+      event.stopImmediatePropagation();
+      
+      // Handle Bootstrap modal positioning manually
+      const modalElement = $element.hasClass('modal') ? $element : $element.find('.modal');
+      
+      if (modalElement.length > 0) {
+        // Apply positioning styles directly to the modal element
+        modalElement[0].style.position = 'fixed';
+        
+        // Always apply width and sizing to the modal dialog
+        const modalDialog = modalElement.find('.modal-dialog');
+        
+        if (modalDialog.length > 0) {
+          // Use configured width or fallback to Media Library default
+          const desktopWidth = settings.width || '1070';
+          const height = settings.height || '500';
+          
+          // Responsive width handling
+          const getResponsiveWidth = function() {
+            const windowWidth = $(window).width();
+            if (windowWidth < 768) {
+              // Mobile: 95% of viewport width with small margins
+              return '95vw';
+            } else if (windowWidth < 1024) {
+              // Tablet: 90% of viewport width
+              return '90vw';
+            } else {
+              // Desktop: use configured width
+              return desktopWidth + 'px';
+            }
+          };
+          
+          const responsiveWidth = getResponsiveWidth();
+          
+          // Force the width with !important to override any CSS classes
+          modalDialog.css({
+            'width': responsiveWidth + ' !important',
+            'max-width': '1070px !important', // Never exceed the configured width
+            'min-width': '320px !important' // Minimum width for very small screens
+          });
+          // Also set the style attribute directly
+          modalDialog[0].style.setProperty('width', responsiveWidth, 'important');
+          modalDialog[0].style.setProperty('max-width', '1070px', 'important');
+          modalDialog[0].style.setProperty('min-width', '320px', 'important');
+          
+          if (height) {
+            modalDialog.css('height', height + 'px');
+            modalDialog[0].style.setProperty('height', height + 'px', 'important');
+          }
+          
+        }
+        
+        // Handle resize if autoResize is enabled
+        if (settings.autoResize === true) {
+          const handleResize = function() {
+            if (modalDialog.length > 0) {
+              const desktopWidth = settings.width || '1070';
+              const height = settings.height || '500';
+              
+              // Responsive width handling
+              const getResponsiveWidth = function() {
+                const windowWidth = $(window).width();
+                if (windowWidth < 768) {
+                  // Mobile: 95% of viewport width with small margins
+                  return '95vw';
+                } else if (windowWidth < 1024) {
+                  // Tablet: 90% of viewport width
+                  return '90vw';
+                } else {
+                  // Desktop: use configured width
+                  return desktopWidth + 'px';
+                }
+              };
+              
+              const responsiveWidth = getResponsiveWidth();
+              
+              // Force the width with !important to override any CSS classes
+              modalDialog[0].style.setProperty('width', responsiveWidth, 'important');
+              modalDialog[0].style.setProperty('max-width', '1070px', 'important');
+              modalDialog[0].style.setProperty('min-width', '320px', 'important');
+              
+              if (height) {
+                modalDialog[0].style.setProperty('height', height + 'px', 'important');
+              }
+            }
+          };
+          
+          // Set up resize listeners
+          $(window).on('resize.dialogBootstrapFix', handleResize);
+          $(document).on('drupalViewportOffsetChange.dialogBootstrapFix', handleResize);
+        }
+      }
+    }
+  });
+  
+  // Clean up on dialog close
+  $(document).off('dialog:beforeclose.dialogBootstrapFix');
+  $(document).on('dialog:beforeclose.dialogBootstrapFix', function() {
+    $(window).off('.dialogBootstrapFix');
+    $(document).off('.dialogBootstrapFix');
+  });
+  
+})(jQuery, Drupal);
+
+// Fix masonry null element error
+(function() {
+  'use strict';
+  
+  // Override Masonry constructor to prevent null element errors
+  if (typeof window.Masonry !== 'undefined') {
+    const originalMasonry = window.Masonry;
+    window.Masonry = function(element, options) {
+      // Check if element exists and is valid
+      if (!element || element === null || element === undefined) {
+        console.warn('Masonry: Invalid element provided, skipping initialization');
+        return null;
+      }
+      
+      // Check if element is in DOM
+      if (!document.contains(element)) {
+        console.warn('Masonry: Element not in DOM, skipping initialization');
+        return null;
+      }
+      
+      // Check if element has children
+      if (!element.children || element.children.length === 0) {
+        console.warn('Masonry: Element has no children, skipping initialization');
+        return null;
+      }
+      
+      try {
+        return new originalMasonry(element, options);
+      } catch (error) {
+        console.warn('Masonry initialization error:', error);
+        return null;
+      }
+    };
+  }
+})();

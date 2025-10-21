@@ -540,6 +540,26 @@ function radix_overrides_preprocess_entity_add_list(&$variables) {
 }
 
 /**
+ * @param $vars
+ *
+ * @return void
+ */
+function radix_overrides_preprocess_links__media_library_menu(&$vars) {
+  // Add missing class 'nav-tabs' where class 'js-media-library-menu' is set.
+  if (isset($vars['attributes']['class']) && in_array('js-media-library-menu', $vars['attributes']['class'])) {
+    $vars['attributes']['class'][] = 'nav-tabs';
+  }
+  // Add missing class 'nav-link' to each link item.
+  foreach ($vars['links'] as $key => $value) {
+    if (isset($vars['links'][$key]['link']['#options']['attributes']['class'])) {
+      $vars['links'][$key]['link']['#options']['attributes']['class'][] = 'nav-link';
+    } else {
+      $vars['links'][$key]['link']['#options']['attributes']['class'] = ['nav-link'];
+    }
+  }
+}
+
+/**
  * Implements hook_element_info_alter().
  */
 function radix_overrides_element_info_alter(&$info): void {
