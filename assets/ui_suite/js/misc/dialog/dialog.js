@@ -316,7 +316,7 @@
   $(document).off('dialog:aftercreate');
   $(document).on('dialog:aftercreate', function(event) {
     const $element = $(event.target);
-    const settings = event.settings || {};
+    const settings = event.settings || event.originalEvent.settings || {};
     
     
     // Check if this is a Bootstrap modal dialog or Media Library modal
