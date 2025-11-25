@@ -126,8 +126,7 @@
 }
 
 .views-row.checked:after,
-.views-row:hover:checked:after,
-.views-row:hover:after {
+.views-row:hover:checked:after {
   display: block;
 }
 
