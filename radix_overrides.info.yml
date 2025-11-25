@@ -93,6 +93,14 @@ libraries-override:
     css:
       component:
         css/media_library_edit.admin.css: false
+  dropzonejs/dropzonejs:
+    css:
+      component:
+        /libraries/dropzone/dropzone.css: false
+  dropzonejs/widget:
+    css:
+      theme:
+        css/dropzone.widget.css: assets/css/component/dropzone.widget.css
   paragraphs/drupal.paragraphs.unpublished: false
   section_library/section_library:
     css:
@@ -145,6 +153,3 @@ libraries-extend:
     - radix_overrides/entity_browser_fix
   tagify/default:
     - radix_overrides/tagify
-
-libraries:
-  - radix_overrides/entity_browser_fix
