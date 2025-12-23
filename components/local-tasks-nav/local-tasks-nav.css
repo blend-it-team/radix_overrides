@@ -1,6 +1,8 @@
 .local-tasks-nav.tabs-box{
   position: relative;
-
+  max-width: 100%;
+  overflow-y: scroll;
+  flex-wrap: nowrap;
   .nav-link,
   .nav-link:hover {
     border-radius: var(--bs-border-radius) !important;
