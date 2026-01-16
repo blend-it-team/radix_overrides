@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the form actions and its children.
+ *
+ * Available variables:
+ * - children: The rendered child elements of the form actions wrapper.
+ *
+ * @see template_preprocess_form_actions()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+  'align-items-end',
+  'hstack',
+  'gap-2',
+  'justify-content-end',
+  'bg-body',
+  'sticky-bottom',
+  'p-3',
+  'rounded',
+  'bg-opacity-75'
+]
+%}
+
+{# Force exposed form default classes (displayed horizontaly) #}
+{% if element['#form_id'] == 'views_exposed_form' %}
+  {% set classes = ['h-stack', 'gap-2', 'form-group'] %}
+{% endif %}
+<div{{ attributes.addClass(classes) }}>
+  {{ element }}
+</div>

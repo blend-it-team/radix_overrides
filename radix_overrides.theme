@@ -42,6 +42,38 @@ function _radix_overrides_button_text_to_class($button_text) {
 }
 
 /**
+ * Implements hook_theme().
+ */
+function radix_overrides_theme($existing, $type, $theme, $path) {
+  return [
+    'form_actions' => [
+      'path' => $path . '/templates/form',
+      'render element' => 'element',
+    ],
+  ];
+}
+/**
+ * Implements hook_theme_suggestions_HOOK_().
+ */
+function radix_overrides_theme_suggestions_form_actions_alter(array &$suggestions, array &$variables) {
+  if (isset($variables['element']['#form_id'])) {
+    $suggestions[] = 'form_actions__' . $variables['element']['#form_id'];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function radix_overrides_preprocess_form_actions(&$variables) {
+  // Add elements attributes to theme wrapper.
+  foreach ($variables['element']['#theme_wrappers'] as $key => $wrapper) {
+    if ($key == 'form_actions') {
+      $variables['attributes'] = $variables['element']['#attributes'];
+    }
+  }
+}
+
+/**
  * Implements hook_preprocess_page().
  */
 function radix_overrides_preprocess_page(&$variables) {
@@ -63,30 +95,11 @@ function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $for
   $form_object = $form_state->getFormObject();
 
   if (isset($form['actions'])) {
-    if (!isset($form['actions']['#attributes']['class'])) {
-      $form['actions']['#attributes']['class'] = [];
-    }
 
-    $view = $form_state->get('view');
-
-    $actions_classes = [
-      'align-items-end',
-      'hstack',
-      'gap-2',
-      'justify-content-end',
+    $form['actions']['#theme_wrappers']['form_actions'] = [
+      '#form_id' => $form_id
     ];
-    // If view filter form add margin top and remove margin bottom.
-    if (!empty($view)) {
-      $actions_classes[] = 'mb-3';
-    }
-    else {
-      $actions_classes[] = 'bg-body';
-      $actions_classes[] = 'sticky-bottom';
-      $actions_classes[] = 'p-3';
-      $actions_classes[] = 'rounded';
-      $actions_classes[] = 'bg-opacity-75';
-    }
-    array_push($form['actions']['#attributes']['class'], ...$actions_classes);
+    $form['actions']['#form_id'] = $form_id;
 
     foreach ($form['actions'] as &$action) {
       if (isset($action['#type']) && $action['#type'] == 'link') {
@@ -104,12 +117,6 @@ function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $for
         $attributes['class'][] = $style_class;
       }
     }
-  }
-
-  // Attach the custom entity browser modal selection library
-  // for entity browser forms.
-  if (strpos($form_id, 'entity_browser_') === 0) {
-    // Libraries are already loaded globally via hook_page_attachments()
   }
 
   if ($form_object instanceof ViewsForm && str_starts_with($form_object->getBaseFormId(), 'views_form_media_library')) {
@@ -209,85 +216,7 @@ function radix_overrides_form_alter(&$form, FormStateInterface $form_state, $for
     }
   }
 
-  if ($form_object instanceof ViewsForm && !empty($form['header'])) {
-    $view = $form_state->getBuildInfo()['args'][0];
-    $view_title = $view->getTitle();
 
-    // Determine if the Views form includes a bulk operations form. If it does,
-    // move it to the bottom and remove the second bulk operations submit.
-    foreach (Element::children($form['header']) as $key) {
-      if (str_contains($key, '_bulk_form')) {
-        // Move the bulk actions form from the header to its own container.
-        $form['bulk_actions_container'] = $form['header'][$key];
-        unset($form['header'][$key]);
-
-        // Remove the supplementary bulk operations submit button as it appears
-        // in the same location the form was moved to.
-        unset($form['actions']);
-
-        $form['bulk_actions_container']['#attributes']['data-drupal-views-bulk-actions'] = '';
-        $form['bulk_actions_container']['#attributes']['class'][] = 'views-bulk-actions';
-        $form['bulk_actions_container']['actions']['submit']['#button_type'] = 'primary';
-        $label = t('Perform actions on the selected items in the %view_title view', ['%view_title' => $view_title]);
-        $label_id = $key . '_group_label';
-
-        // Group the bulk actions select and submit elements, and add a label
-        // that makes the purpose of these elements more clear to
-        // screen readers.
-        $form['bulk_actions_container']['#attributes']['role'] = 'group';
-        $form['bulk_actions_container']['#attributes']['aria-labelledby'] = $label_id;
-        $form['bulk_actions_container']['group_label'] = [
-          '#type' => 'container',
-          '#markup' => $label,
-          '#attributes' => [
-            'id' => $label_id,
-            'class' => ['visually-hidden'],
-          ],
-          '#weight' => -1,
-        ];
-
-        // Add a status label for counting the number of items selected.
-        $form['bulk_actions_container']['status'] = [
-          '#type' => 'container',
-          '#markup' => t('No items selected'),
-          '#weight' => -1,
-          '#attributes' => [
-            'class' => [
-              'js-views-bulk-actions-status',
-              'views-bulk-actions__item',
-              'views-bulk-actions__item--status',
-              'js-show',
-            ],
-            'data-drupal-views-bulk-actions-status' => '',
-          ],
-        ];
-
-        // Loop through bulk actions items and add the needed CSS classes.
-        $bulk_action_item_keys = Element::children($form['bulk_actions_container'], TRUE);
-        $bulk_last_key = NULL;
-        $bulk_child_before_actions_key = NULL;
-        foreach ($bulk_action_item_keys as $bulk_action_item_key) {
-          if (!empty($form['bulk_actions_container'][$bulk_action_item_key]['#type'])) {
-            if ($form['bulk_actions_container'][$bulk_action_item_key]['#type'] === 'actions') {
-              // We need the key of the element that precedes the actions
-              // element.
-              $bulk_child_before_actions_key = $bulk_last_key;
-              $form['bulk_actions_container'][$bulk_action_item_key]['#attributes']['class'][] = 'views-bulk-actions__item';
-            }
-
-            if (!in_array($form['bulk_actions_container'][$bulk_action_item_key]['#type'], ['hidden', 'actions'])) {
-              $form['bulk_actions_container'][$bulk_action_item_key]['#wrapper_attributes']['class'][] = 'views-bulk-actions__item';
-              $bulk_last_key = $bulk_action_item_key;
-            }
-          }
-        }
-
-        if ($bulk_child_before_actions_key) {
-          $form['bulk_actions_container'][$bulk_child_before_actions_key]['#wrapper_attributes']['class'][] = 'views-bulk-actions__item--preceding-actions';
-        }
-      }
-    }
-  }
 }
 
 /**
