@@ -19,6 +19,9 @@ regions:
   content: 'Content'
   footer: 'Footer'
 
+libraries:
+  - radix_overrides/entity_browser_fix
+
 libraries-override:
   text/drupal.text: radix_overrides/drupal.text
   core/drupal.vertical-tabs: radix_overrides/drupal.vertical-tabs
