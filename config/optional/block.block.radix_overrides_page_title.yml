@@ -5,7 +5,7 @@ dependencies:
     - radix_overrides
 id: radix_overrides_page_title
 theme: radix_overrides
-region: navbar_branding
+region: content
 weight: -5
 provider: null
 plugin: page_title_block
@@ -14,4 +14,4 @@ settings:
   label: 'Page title'
   label_display: '0'
   provider: core
-visibility: {  }
+visibility: []

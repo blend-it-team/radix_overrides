@@ -7,7 +7,7 @@ dependencies:
     - radix_overrides
 id: radix_overrides_powered
 theme: radix_overrides
-region: navbar_branding
+region: sidebar_footer
 weight: 0
 provider: null
 plugin: system_powered_by_block
@@ -16,4 +16,4 @@ settings:
   label: 'Powered by Drupal'
   label_display: '0'
   provider: system
-visibility: {  }
+visibility: []

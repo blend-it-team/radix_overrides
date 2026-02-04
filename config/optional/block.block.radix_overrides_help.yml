@@ -1,5 +1,5 @@
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - help
@@ -16,4 +16,4 @@ settings:
   label: Help
   label_display: '0'
   provider: help
-visibility: {  }
+visibility: []

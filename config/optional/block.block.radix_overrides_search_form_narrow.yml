@@ -1,5 +1,5 @@
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - search
@@ -17,4 +17,4 @@ settings:
   label_display: '0'
   provider: search
   page_id: null
-visibility: {  }
+visibility: []

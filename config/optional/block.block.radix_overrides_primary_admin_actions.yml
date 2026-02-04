@@ -5,7 +5,7 @@ dependencies:
     - radix_overrides
 id: radix_overrides_primary_admin_actions
 theme: radix_overrides
-region: navbar_branding
+region: content
 weight: -5
 provider: null
 plugin: local_actions_block
@@ -14,4 +14,4 @@ settings:
   label: 'Primary admin actions'
   label_display: '0'
   provider: core
-visibility: {  }
+visibility: []
