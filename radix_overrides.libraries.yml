@@ -185,3 +185,9 @@ filter:
   css:
     component:
       assets/css/component/filter.theme.css: {}
+
+filepond:
+  version: VERSION
+  css:
+    theme:
+      assets/css/component/filepond.css: {}

@@ -1,0 +1,42 @@
+.filepond--item[data-filepond-item-state="processing-complete"] .filepond--image-preview-wrapper {
+  border-color: var(--bs-primary);
+}
+
+.filepond--image-preview-overlay-success {
+  color: var(--bs-primary);
+}
+
+.filepond--image-preview-overlay-failure {
+  color: var(--bs-danger);
+}
+
+.filepond-element {
+  --filepond-crop-bg-color: var(--bs-light);
+}
+
+/* Drop label text color */
+.filepond--root:not(.has-files) .filepond--drop-label {
+  min-height: 200px;
+  color: var(--bs-dark, #666);
+}
+.filepond--label-action {
+  color: var(--bs-primary, #888);
+  border-color: var(--bs-primary, #888);
+  text-decoration-color: var(--bs-primary, #888);
+}
+
+.filepond--file .filepond--file-info {
+  background: var(--bs-black);
+}
+
+.filepond--item[data-filepond-item-state="processing-error"] .filepond--image-preview-wrapper {
+  border-color: var(--bs-danger);
+}
+
+.filepond--item[data-filepond-item-state="processing-complete"] .filepond--image-preview-wrapper {
+  border-color: var(--bs-success);
+}
+
+.filepond-requirements {
+  color: var(--bs-dark);
+}

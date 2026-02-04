@@ -144,6 +144,8 @@ libraries-extend:
     - radix_overrides/drupal.tableselect
   core/ckeditor5:
     - radix_overrides/ckeditor5
+  filepond/filepond:
+    - radix_overrides/filepond
   filter/drupal.filter:
     - radix_overrides/filter
   media_entity_browser/view:
