@@ -1,24 +1,38 @@
+.filepond--root{
+  margin: 0;
+  font-family: inherit;
+  --filepond-crop-bg-color: var(--bs-body-bg);
+  --filepond-text-color: var(--bs-body-color);
+  --filepond-border-color: var(-bs-border-color);
+  --filepond-item-radius: var(--bs-border-radius);
+}
 .filepond--item[data-filepond-item-state="processing-complete"] .filepond--image-preview-wrapper {
-  border-color: var(--bs-primary);
+
 }
 
 .filepond--image-preview-overlay-success {
-  color: var(--bs-primary);
+  color: var(--bs-success);
 }
 
 .filepond--image-preview-overlay-failure {
   color: var(--bs-danger);
 }
 
-.filepond-element {
-  --filepond-crop-bg-color: var(--bs-light);
+.filepond-element .filepond--panel-root {
+  border-style: var(--bs-border-style);
+  border-color: var(--bs-border-color);
+  border-width: var(--bs-border-width);
+
 }
 
 /* Drop label text color */
 .filepond--root:not(.has-files) .filepond--drop-label {
   min-height: 200px;
-  color: var(--bs-dark, #666);
 }
+.filepond--root:not(.has-files) .filepond--panel-root  {
+  border-style: dashed;
+}
+
 .filepond--label-action {
   color: var(--bs-primary, #888);
   border-color: var(--bs-primary, #888);
@@ -38,5 +52,5 @@
 }
 
 .filepond-requirements {
-  color: var(--bs-dark);
+  color: var(--bs-secondary-color);
 }
