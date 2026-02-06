@@ -17,17 +17,13 @@
       const $context = $(context);
 
       if (!$('#drupal-modal').length) {
-        $(
-          '<div id="drupal-modal" class="modal fade" tabindex="-1" role="dialog"><div class="modal-dialog ui-dialog" role="document"><div class="modal-content"></div></div></div>',
-        )
-          .hide()
-          .appendTo('body');
+        $(`<div id="drupal-modal"></div>`).appendTo('body');
       }
 
-      const $dialog = $context.closest('.modal-content');
+      const $dialog = $context.closest('#drupal-modal');
       if ($dialog.length) {
-        const dialogSettings = $dialog.closest('.modal').data('settings');
-        if (dialogSettings && dialogSettings.drupalAutoButtons) {
+        const drupalAutoButtons = $dialog.data('drupal-auto-buttons');
+        if (drupalAutoButtons) {
           $dialog.trigger('dialogButtonsChange');
         }
       }
@@ -55,7 +51,7 @@
     prepareDialogButtons: function prepareDialogButtons($dialog) {
       const buttons = [];
       const $buttons = $dialog.find(
-        '.form-actions input[type=submit], .form-actions button[type=submit], .form-actions a.button',
+        '.form-actions input[type=submit], .form-actions a.button, .form-actions a.action-link, .form-actions button[type=submit]',
       );
       // eslint-disable-next-line func-names
       $buttons.each(function () {
@@ -98,28 +94,76 @@
     dialogUrlAjax.execute();
   };
 
+  function openOffCanvasDialog(ajax, response, status) {
+    if (!response.selector) {
+      return false;
+    }
+    let $dialog = $(response.selector);
+    if (!$dialog.length) {
+      // Add 'ui-front' jQuery UI class so jQuery UI widgets like autocomplete
+      // sit on top of dialogs. For more information see
+      // http://api.jqueryui.com/theming/stacking-elements/.
+      $dialog = $(
+        `<div id="${response.selector.replace(
+          /^#/,
+          '',
+        )}" class="offcanvas" tabindex="-1" role="dialog"></div>`,
+      ).appendTo('body');
+    }
+
+    // Set up the wrapper, if there isn't one.
+    if (!ajax.wrapper) {
+      ajax.wrapper = $dialog.attr('id');
+    }
+
+    // Use the ajax.js insert command to populate the dialog contents.
+    response.command = 'insert';
+    response.method = 'html';
+    if (
+      response.dialogOptions.modalDialogWrapBody === undefined ||
+      response.dialogOptions.modalDialogWrapBody === true ||
+      response.dialogOptions.modalDialogWrapBody === 'true'
+    ) {
+      response.data = `<div class="offcanvas-body">${response.data}</div>`;
+    }
+    ajax.commands.insert(ajax, response, status);
+
+    // Open the dialog itself.
+    response.dialogOptions = response.dialogOptions || {};
+    const dialog = Drupal.uiSuiteOffCanvas(
+      $dialog.get(0),
+      response.dialogOptions,
+    );
+    if (response.dialogOptions.modal) {
+      dialog.showModal();
+    } else {
+      dialog.show();
+    }
+
+    // Add the standard Drupal class for buttons for style consistency.
+    $dialog.parent().find('.ui-dialog-buttonset').addClass('form-actions');
+  }
+
+  Drupal.AjaxCommands.prototype.coreOpenDialog =
+    Drupal.AjaxCommands.prototype.openDialog;
+
   Drupal.AjaxCommands.prototype.openDialog = (ajax, response, status) => {
+    if (ajax.dialogRenderer === 'off_canvas') {
+      return openOffCanvasDialog(ajax, response, status);
+    }
     if (!response.selector) {
       return false;
     }
     let $dialog = $(response.selector);
     if (!$dialog.length) {
       $dialog = $(
-        `<div id="${response.selector.replace(
-          /^#/,
-          '',
-        )}" class="modal fade" tabindex="-1" role="dialog"><div class="modal-dialog" role="document"><div class="modal-content"></div></div></div>`,
-      )
-        .hide()
-        .appendTo('body');
-    }
-
-    if (!ajax.wrapper) {
-      response.selector = `${response.selector.toString()} .modal-content`;
+        `<div id="${response.selector.replace(/^#/, '')}"></div>`,
+      ).appendTo('body');
     }
 
     response.command = 'insert';
     response.method = 'html';
+    response.dialogOptions = response.dialogOptions || {};
 
     // Do some extra things here, set Drupal.autocomplete options to render
     // autocomplete box inside the modal.
@@ -129,40 +173,37 @@
     ) {
       Drupal.autocomplete.options.appendTo = response.selector;
     }
-
-    if (
-      response.dialogOptions.modalDialogWrapBody === undefined ||
-      response.dialogOptions.modalDialogWrapBody === true ||
-      response.dialogOptions.modalDialogWrapBody === 'true'
-    ) {
-      response.data = `<div class="modal-body">${response.data}</div>`;
-    }
-
     ajax.commands.insert(ajax, response, status);
 
-    if (
-      !response.dialogOptions.drupalAutoButtons ||
-      response.dialogOptions.drupalAutoButtons !== 'false'
-    ) {
+    // Move the buttons to the Bootstrap dialog buttons area.
+    if (typeof response.dialogOptions.drupalAutoButtons === 'undefined') {
       response.dialogOptions.drupalAutoButtons = true;
-      if (
-        response.dialogOptions.buttons === undefined ||
-        response.dialogOptions.buttons.length <= 0
-      ) {
-        response.dialogOptions.buttons =
-          Drupal.behaviors.dialog.prepareDialogButtons($dialog);
-      }
-    } else {
+    } else if (response.dialogOptions.drupalAutoButtons === 'false') {
       response.dialogOptions.drupalAutoButtons = false;
+    } else {
+      response.dialogOptions.drupalAutoButtons =
+        !!response.dialogOptions.drupalAutoButtons;
     }
 
+    if (
+      !response.dialogOptions.buttons &&
+      response.dialogOptions.drupalAutoButtons
+    ) {
+      response.dialogOptions.buttons =
+        Drupal.behaviors.dialog.prepareDialogButtons($dialog);
+    }
+    $dialog.data(
+      'drupal-auto-buttons',
+      response.dialogOptions.drupalAutoButtons,
+    );
+    // Bind dialogButtonsChange.
     $dialog.on('dialogButtonsChange', () => {
       const buttons = Drupal.behaviors.dialog.prepareDialogButtons($dialog);
-
       const dialog = Drupal.dialog($dialog.get(0));
       dialog.updateButtons(buttons);
     });
 
+    // Open the dialog itself.
     response.dialogOptions = response.dialogOptions || {};
     const dialog = Drupal.dialog($dialog.get(0), response.dialogOptions);
     if (response.dialogOptions.modal) {
@@ -171,6 +212,7 @@
       dialog.show();
     }
 
+    // Add the standard Drupal class for buttons for style consistency.
     $dialog.parent().find('.ui-dialog-buttonset').addClass('form-actions');
   };
 
@@ -178,7 +220,11 @@
   Drupal.AjaxCommands.prototype.closeDialog = (ajax, response, status) => {
     const $dialog = $(response.selector);
     if ($dialog.length) {
-      Drupal.dialog($dialog.get(0)).close();
+      if ($dialog.hasClass('offcanvas')) {
+        Drupal.uiSuiteOffCanvas($dialog.get(0)).close();
+      } else {
+        Drupal.dialog($dialog.get(0)).close();
+      }
     }
 
     $dialog.off('dialogButtonsChange');
@@ -192,49 +238,18 @@
     }
   };
 
-  // Add custom command to handle entity browser selection and close modal
-  Drupal.AjaxCommands.prototype.select_entities = (ajax, response, status) => {
-    const uuid = drupalSettings.entity_browser.modal.uuid;
-
-    $(':input[data-uuid="' + uuid + '"]').trigger('entities-selected', [uuid, response.entities])
-      .removeClass('entity-browser-processed').unbind('entities-selected');
-
-    // Only close the modal dialog after selection if entities were actually selected
-    if (response.entities && response.entities.length > 0) {
-      const $modal = $('.modal.show');
-      if ($modal.length) {
-        $modal.modal('hide');
-      }
-    }
-  };
-
-  // Add behavior to handle entity browser selection completion
-  Drupal.behaviors.entityBrowserModalClose = {
-    attach: function (context, settings) {
-      // Listen for entity browser selection completion - only close when entities are actually selected
-      $(document).on('entities-selected', function (event, uuid, entities) {
-        // Only close any open Bootstrap modals if entities were actually selected
-        if (entities && entities.length > 0) {
-          const $modal = $('.modal.show');
-          if ($modal.length) {
-            $modal.modal('hide');
-          }
-        }
-      });
-    }
-  };
-
-  // eslint-disable-next-line
-  $(window).on("dialog:aftercreate", (e, dialog, $element, settings) => {
-    // eslint-disable-next-line
-    $element.on("click.dialog", ".dialog-cancel", (e) => {
+  window.addEventListener('dialog:aftercreate', (event) => {
+    const $element = $(event.target);
+    const dialog = event.dialog;
+    $element.on('click.dialog', '.dialog-cancel', (e) => {
       dialog.close('cancel');
       e.preventDefault();
       e.stopPropagation();
     });
   });
 
-  $(window).on('dialog:beforeclose', (e, dialog, $element) => {
+  window.addEventListener('dialog:beforeclose', (e) => {
+    const $element = $(e.target);
     $element.off('.dialog');
 
     // Do some extra things here, set Drupal.autocomplete options to render
