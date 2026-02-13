@@ -1,6 +1,6 @@
 drupal.ajax:
   js:
-    assets/radix/js/overrides/ajax.js: {}
+    assets/js/ajax.js: {}
   dependencies:
     - core/drupal
 
