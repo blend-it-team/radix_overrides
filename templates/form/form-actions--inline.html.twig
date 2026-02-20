@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the form actions and its children.
+ *
+ * Available variables:
+ * - children: The rendered child elements of the form actions wrapper.
+ *
+ * @see template_preprocess_form_actions()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+  'hstack',
+  'gap-2',
+  'form-group'
+]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ element }}
+</div>

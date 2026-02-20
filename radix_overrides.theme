@@ -50,6 +50,18 @@ function radix_overrides_theme($existing, $type, $theme, $path) {
       'path' => $path . '/templates/form',
       'render element' => 'element',
     ],
+    'form_actions__inline' => [
+      'path' => $path . '/templates/form',
+      'base hook' => 'form_actions',
+    ],
+    'form_actions__search_block_form' => [
+      'path' => $path . '/templates/form',
+      'base hook' => 'form_actions__inline',
+    ],
+    'form_actions__exposed_filter' => [
+      'path' => $path . '/templates/form',
+      'base hook' => 'form_actions__inline',
+    ]
   ];
 }
 /**
