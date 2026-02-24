@@ -6,7 +6,7 @@ dependencies:
 id: radix_overrides_secondary_local_tasks
 theme: radix_overrides
 region: content
-weight: -2
+weight: -1
 provider: null
 plugin: local_tasks_block
 settings:
