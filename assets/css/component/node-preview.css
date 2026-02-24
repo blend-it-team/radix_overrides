@@ -1,5 +1,6 @@
 #node-preview-form-select {
   position: sticky;
+  view-transition-name: node-preview-form-select;
   animation: fade-in-bottom 320ms 1 forwards;
   z-index:999;
   background-color: rgba(var(--bs-body-bg-rgb) , 0.75);
@@ -20,6 +21,10 @@
   }
 }
 
+/* view transition reveal */
+::view-transition-new(node-preview-form-select) {
+  animation: fade-in-bottom 320ms 1 both;
+}
 
 @keyframes fade-in-bottom {
   0% {

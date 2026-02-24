@@ -1,12 +1,12 @@
 drupal.ajax:
   js:
-    assets/radix/js/overrides/ajax.js: {}
+    assets/js/ajax.js: {}
   dependencies:
     - core/drupal
 
 drupal.checkbox:
   js:
-    assets/radix/js/overrides/checkbox.js: {}
+    assets/js/checkbox.js: {}
   dependencies:
     - core/drupal
 
@@ -44,23 +44,23 @@ drupal.dialog.off_canvas:
 
 drupal.message:
   js:
-    assets/radix/js/overrides/message.js: {}
+    assets/js/message.js: {}
 
 drupal.progress:
   js:
-    assets/radix/js/overrides/progress.js: {}
+    assets/js/progress.js: {}
   dependencies:
     - core/drupal
     - core/jquery
 jquery.validate:
   js:
-    assets/radix/js/overrides/validate.js: {}
+    assets/js/validate.js: {}
   dependencies:
     - core/jquery
 
 drupal.tabledrag:
   js:
-    assets/ui_suite/js/misc/tabledrag.js: {}
+    assets/js/tabledrag.js: {}
   css:
     component:
       assets/css/component/tabledrag.css: {}

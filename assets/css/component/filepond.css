@@ -27,6 +27,7 @@
 
 /* Drop label text color */
 .filepond--root:not(.has-files) .filepond--drop-label {
+  color: inherit;
   min-height: 200px;
 }
 .filepond--root:not(.has-files) .filepond--panel-root  {
