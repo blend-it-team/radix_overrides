@@ -158,3 +158,5 @@ libraries-extend:
     - radix_overrides/entity_browser_fix
   tagify/default:
     - radix_overrides/tagify
+  plyr/plyr:
+    - radix_overrides/plyr

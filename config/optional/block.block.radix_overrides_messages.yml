@@ -8,7 +8,7 @@ dependencies:
 id: radix_overrides_messages
 theme: radix_overrides
 region: content
-weight: -5
+weight: -7
 provider: null
 plugin: system_messages_block
 settings:

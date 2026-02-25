@@ -10,7 +10,7 @@ dependencies:
 id: radix_overrides_account_menu
 theme: radix_overrides
 region: navbar_branding
-weight: 1
+weight: 0
 provider: null
 plugin: 'system_menu_block:account'
 settings:

@@ -8,7 +8,7 @@ dependencies:
 id: radix_overrides_help
 theme: radix_overrides
 region: navbar_branding
-weight: 0
+weight: -2
 provider: null
 plugin: help_block
 settings:

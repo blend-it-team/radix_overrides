@@ -10,7 +10,7 @@ dependencies:
 id: radix_overrides_main_menu
 theme: radix_overrides
 region: navbar_branding
-weight: 1
+weight: -1
 provider: null
 plugin: 'system_menu_block:main'
 settings:

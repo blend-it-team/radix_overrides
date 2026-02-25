@@ -41,7 +41,6 @@ drupal.dialog.off_canvas:
     - core/drupal
     - core/drupalSettings
 
-
 drupal.message:
   js:
     assets/js/message.js: {}
@@ -83,11 +82,13 @@ drupal.tableselect:
     - core/drupal.debounce
     - core/tabbable
     - core/once
+
 drupal.node.preview:
   version: VERSION
   css:
     theme:
       assets/css/component/node-preview.css: {}
+
 drupal.text:
   js:
     assets/js/text.js: {}
@@ -190,3 +191,9 @@ filepond:
   css:
     theme:
       assets/css/component/filepond.css: {}
+
+plyr:
+  version: VERSION
+  css:
+    theme:
+      assets/css/component/plyr.css: {}

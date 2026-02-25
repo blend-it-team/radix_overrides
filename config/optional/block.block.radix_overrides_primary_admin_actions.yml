@@ -6,7 +6,7 @@ dependencies:
 id: radix_overrides_primary_admin_actions
 theme: radix_overrides
 region: content
-weight: -5
+weight: -3
 provider: null
 plugin: local_actions_block
 settings:
